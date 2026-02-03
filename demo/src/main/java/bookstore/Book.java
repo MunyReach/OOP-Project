@@ -5,12 +5,14 @@ public class Book {
     private String author;
     private String isbn;
     private double price;
+    private String genre;
 
     public Book(String title, String author, String isbn, double price) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
         this.price = price;
+        this.genre = "General";
     }
 
     public String getTitle() {
@@ -28,5 +30,8 @@ public class Book {
     public double getPrice() {
         return price;
     }
+    public String getGenre() {
+        return genre;
+    }x
     
 }
