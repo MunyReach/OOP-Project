@@ -5,12 +5,14 @@ public class Book {
     private String author;
     private String isbn;
     private double price;
+    private String category;
 
-    public Book(String title, String author, String isbn, double price) {
+    public Book(String title, String author, String isbn, double price, String category) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
         this.price = price;
+        this.category = category;
     }
 
     public String getTitle() {
@@ -27,6 +29,10 @@ public class Book {
 
     public double getPrice() {
         return price;
+    }
+
+    public String getCategory() {
+        return category;
     }
     
 }
