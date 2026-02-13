@@ -1,6 +1,6 @@
 package bookstore;
 
-public class Book {
+public class Booksettings {
     private String title;
     private String author;
     private String isbn;
@@ -12,7 +12,7 @@ public class Book {
         this.author = author;
         this.isbn = isbn;
         this.price = price;
-        this.genre = "General";
+        this.genre = "Unknown"; // Default genre
         
     }
 
@@ -48,6 +48,14 @@ public class Book {
         this.isbn = isbn;
     }public void setPrice(double price) {
         this.price = price;
+    }
+
+    public void displayInfo() {
+        System.out.println("Title: " + title);
+        System.out.println("Author: " + author);
+        System.out.println("ISBN: " + isbn);
+        System.out.println("Price: $" + price);
+        System.out.println("Genre: " + genre);
     }
     
 }
