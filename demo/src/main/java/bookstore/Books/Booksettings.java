@@ -1,4 +1,4 @@
-package bookstore;
+package bookstore.Books;
 
 public class Booksettings {
     private String title;

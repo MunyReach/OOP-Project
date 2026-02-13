@@ -1,4 +1,4 @@
-package bookstore;
+package bookstore.MenuRelated.Buying;
 
 public class BuyBooks {
     public void displayBooksForSale() {

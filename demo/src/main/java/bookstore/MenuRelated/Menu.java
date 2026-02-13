@@ -1,4 +1,4 @@
-package bookstore;
+package bookstore.MenuRelated;
 
 public class Menu {
     public void DisplayMenu() {

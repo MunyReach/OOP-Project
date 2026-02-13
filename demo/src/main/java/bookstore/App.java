@@ -1,4 +1,9 @@
 package bookstore;
+
+import bookstore.Books.BookInfoHolder;
+import bookstore.MenuRelated.Menu;
+import bookstore.MenuRelated.Buying.BuyBooks;
+
 util.Scanner;
 public class App 
 {

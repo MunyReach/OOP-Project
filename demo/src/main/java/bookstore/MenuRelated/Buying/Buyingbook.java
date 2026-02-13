@@ -1,4 +1,4 @@
-package bookstore;
+package bookstore.MenuRelated.Buying;
 util.Scanner;
 public class Buyingbook {
     public void buyBook(Book book) {

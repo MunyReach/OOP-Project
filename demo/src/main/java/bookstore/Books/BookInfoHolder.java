@@ -1,4 +1,4 @@
-package bookstore;
+package bookstore.Books;
 
 public class BookInfoHolder {
     //Setting up books

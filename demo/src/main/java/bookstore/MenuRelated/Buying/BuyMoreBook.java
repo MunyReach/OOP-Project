@@ -1,4 +1,6 @@
-package bookstore;
+package bookstore.MenuRelated.Buying;
+
+import bookstore.App;
 
 public class BuyMoreBook {
     public void askToBuyMore() {
