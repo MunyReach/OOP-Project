@@ -6,6 +6,8 @@ public class Booksettings {
     private String isbn;
     private double price;
     private String genre;
+    private int quantity;
+    private boolean isAvailable;
 
     public Book(String title, String author, String isbn, double price) {
         this.title = title;
@@ -13,6 +15,8 @@ public class Booksettings {
         this.isbn = isbn;
         this.price = price;
         this.genre = "Unknown"; // Default genre
+        this.quantity = 1; // Default quantity
+        this.isAvailable = true; // Default availability
         
     }
 
@@ -56,6 +60,11 @@ public class Booksettings {
         System.out.println("ISBN: " + isbn);
         System.out.println("Price: $" + price);
         System.out.println("Genre: " + genre);
+    }
+    if(this.quantity > 0) {
+        this.isAvailable = true;
+    } else {
+        this.isAvailable = false;
     }
     
 }

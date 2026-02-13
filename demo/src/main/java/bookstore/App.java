@@ -17,6 +17,8 @@ public class App
 
         if(scanner.nextLine().equals("1")){
             System.out.println("You have selected to buy books.");
+            BuyBooks buyBooks = new BuyBooks();
+            buyBooks.displayBooksForSale();
         }
         else if(scanner.nextLine().equals("2"))
         {
@@ -30,7 +32,7 @@ public class App
         {
             System.out.println("Invalid selection. Please choose a valid option from the menu.");
         }
-        
+
         BookInfoHolder bookInfoHolder = new BookInfoHolder();
         bookInfoHolder.displayBooks();
 
