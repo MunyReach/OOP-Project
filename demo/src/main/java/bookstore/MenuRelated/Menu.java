@@ -2,10 +2,8 @@ package bookstore.MenuRelated;
 
 public class Menu {
     public void DisplayMenu() {
-        System.out.println("=================MEnu==================");
+        System.out.println("=================MENU==================");
         System.out.println("1.Buy Books");
-        System.out.println("2.Borrow books");
-        System.out.println("3.Return Book");
         
     }
 }

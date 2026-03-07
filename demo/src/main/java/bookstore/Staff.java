@@ -1,10 +1,15 @@
 package bookstore;
-private String password;
+//Change by liya: write code inside class 
+
 public class Staff extends User{
-    public Staff(String name, String email) {
-        super(name, email);
+    private String password;
+
+
+    public Staff(String name, String email, String password) {
+        super(name, email, password);
+        this.password = password;
     }
-public setPassword(String password) {
+public void setPassword(String password) {
         this.password = password;
     }
 private String getPassword() {
@@ -16,7 +21,5 @@ private String getPassword() {
         return "Staff";
     }
 
-    public void addBook(Book book) {
-        System.out.println("Book added: " + book.getTitle());
-    }
+    
 }

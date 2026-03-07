@@ -1,23 +1,31 @@
+//Note to team: Java doesn't allow statements that exist outside a constructor or method like that directly in class body. So we delete Booksettings.java and add missing fields there.
+
 package bookstore.Books;
 
+import java.util.ArrayList;
+
+import bookstore.Book;
+
 public class BookInfoHolder {
-    //Setting up books
-    
-        Book book1 = new Book("The Great Gatsby", "F. Scott Fitzgerald", "978-0743273565", 10.99);
-        book1.setGenre("Classic");
-        
+   //use arraylist instead 
+    private ArrayList<Book> books;
 
-        Book book2 = new Book("To Kill a Mockingbird", "Harper Lee", "978-0061120084", 7.99);
-        book2.setGenre("Fiction");
-       
+    public BookInfoHolder() {
 
-        Book book3 = new Book("1984", "George Orwell", "978-0451524935", 9.99);
-        book3.setGenre("Dystopian");
-       
+        books = new ArrayList<>();
+        books.add(new Book("The Great Gatsby", "F. Scott Fitzgerald", "978-0743273565", 10.99, "Classic"));
+        books.add(new Book("To Kill a Mockingbird", "Harper Lee", "978-0061120084", 7.99, "Fiction"));
+        books.add(new Book("1984", "George Orwell", "978-0451524935", 9.99, "Dystopian"));
+    }
 
-        public void displayBooks() {
-            book1.displayInfo();
-            book2.displayInfo();
-            book3.displayInfo();
+    public ArrayList<Book> getBooks() {
+        return books;
+    }
+
+    public void displayBooks() {
+        for (int i = 0; i < books.size(); i++) {
+            System.out.print((i+1) + ". ");
+            books.get(i).displayInfo();
         }
+    }
 }
