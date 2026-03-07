@@ -1,5 +1,6 @@
 package bookstore.book;
 
+import bookstore.Book;
 import java.util.List;
 import java.util.ArrayList;
 

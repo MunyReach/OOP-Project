@@ -2,24 +2,33 @@ package bookstore;
 
 import bookstore.MenuRelated.Menu;
 import bookstore.MenuRelated.Buying.BuyBooks;
+import bookstore.MenuRelated.SpecificMenu.OwnerMenu;
+import bookstore.MenuRelated.SpecificMenu.ManagerMenu;
+import bookstore.MenuRelated.SpecificMenu.StaffMenu;
 import bookstore.auth.LoginHandler;
 import bookstore.auth.ManagerLoginHandler;
 import bookstore.auth.OwnerLoginHandler;
 import bookstore.auth.StaffLoginHandler;
 import bookstore.book.BookStock;
-import bookstore.menu.MenuHandler;
 import bookstore.User.Staff.User;
+import bookstore.User.Staff.StaffList;
+import bookstore.User.Staff.ManagerList;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Menu menu = new Menu();
+        
+        // Initialize staff and manager lists
+        StaffList staffList = new StaffList(new ArrayList<>());
+        ManagerList managerList = new ManagerList(new ArrayList<>());
+        
         LoginHandler ownerLoginHandler = new OwnerLoginHandler();
         LoginHandler managerLoginHandler = new ManagerLoginHandler();
         LoginHandler staffLoginHandler = new StaffLoginHandler();
         BookStock bookStock = new BookStock();
-        MenuHandler menuHandler = new MenuHandler(bookStock, scanner);
         
         System.out.println("====== Welcome to Bookstore ======\n");
         
@@ -57,9 +66,16 @@ public class App {
         // Show role-based menu if login successful
         if (user != null) {
             System.out.println();
-            menuHandler.handleUserMenu(user);
-            if(user.getRole().equals("Staff")){
-                
+            
+            if (user.getRole().equals("Owner")) {
+                OwnerMenu ownerMenu = new OwnerMenu(bookStock, scanner, staffList, managerList);
+                ownerMenu.handleUserMenu(user);
+            } else if (user.getRole().equals("Manager")) {
+                ManagerMenu managerMenu = new ManagerMenu(bookStock, scanner, staffList);
+                managerMenu.handleUserMenu(user);
+            } else if (user.getRole().equals("Staff")) {
+                StaffMenu staffMenu = new StaffMenu(bookStock, scanner);
+                staffMenu.handleUserMenu(user);
             }
         }
         

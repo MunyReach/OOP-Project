@@ -1,15 +1,15 @@
-package bookstore.User.Staff.AddRemove;
+package bookstore.User.Staff.AddRemoveDisplay;
 
 import bookstore.Book;
 import bookstore.book.BookStock;
 
 import java.util.Scanner;
 
-public class AddRemove {
+public class AddRemoveBook {
     private BookStock bookStock;
     private Scanner scanner;
 
-    public AddRemove(BookStock bookStock, Scanner scanner) {
+    public AddRemoveBook(BookStock bookStock, Scanner scanner) {
         this.bookStock = bookStock;
         this.scanner = scanner;
     }
