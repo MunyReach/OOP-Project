@@ -1,4 +1,4 @@
-package bookstore;
+package bookstore.User.Staff;
 
 public abstract class User {
     protected String name;
@@ -16,7 +16,14 @@ public abstract class User {
     public String getEmail() { return email; }
     private String getPassword() { return password; }
 
+    public boolean isPasswordCorrect(String inputPassword) {
+        return password.equals(inputPassword);
+    }
+
 
 
     public abstract String getRole();
+
+    //
+    
 }

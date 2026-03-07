@@ -1,6 +1,6 @@
 //Note to team: Java doesn't allow statements that exist outside a constructor or method like that directly in class body. So we delete Booksettings.java and add missing fields there.
 
-package bookstore.Books;
+package bookstore.book;
 
 import java.util.ArrayList;
 

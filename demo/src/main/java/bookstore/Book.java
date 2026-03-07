@@ -45,7 +45,7 @@ public class Book {
         if (quantity < 0) quantity = 0;
     }
 
-        public void displayInfo() {
+    public void displayInfo() {
         System.out.println(title + " by " + author + " - $" + price + " (" + quantity + " left)");
     }
 }

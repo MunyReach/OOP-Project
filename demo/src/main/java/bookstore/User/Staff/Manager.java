@@ -1,4 +1,5 @@
-package bookstore;
+package bookstore.User.Staff;
+
 //Change by Liya: matching constrctor and class name (staff to Manager)
 public class Manager extends User{
     
@@ -11,8 +12,7 @@ public class Manager extends User{
         return "Manager";
     }
 
-    public void addBook(Book book) {
-        System.out.println("Book added: " + book.getTitle());
-    }
+
+
 }
 

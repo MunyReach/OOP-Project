@@ -1,4 +1,7 @@
-package bookstore;
+package bookstore.User.Staff;
+
+
+import bookstore.Book;
 
 import bookstore.Payment.PaymentMethod;
 
@@ -21,4 +24,6 @@ public class Customer extends User{
             System.out.println("Payment failed!");
         }
     }
+
+
 }

@@ -2,7 +2,8 @@ package bookstore.MenuRelated.Buying;
 
 //new import 
 import bookstore.Book;
-import bookstore.Books.BookInfoHolder;
+import bookstore.book.BookInfoHolder;
+
 import java.util.Scanner;
 
 //and simplfiy this because book1,2,3 was undefined and delete "buyingbook" object  and isAvailable() doesn't exist

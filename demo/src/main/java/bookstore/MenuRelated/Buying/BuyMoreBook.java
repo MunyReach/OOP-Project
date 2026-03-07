@@ -8,7 +8,7 @@ public class BuyMoreBook {
         private Scanner scanner;
         private BuyBooks buyBooks;
 
-// Constructor receives the same scanner and BuyBooks instance
+    // Constructor receives the same scanner and BuyBooks instance
         public BuyMoreBook(Scanner scanner, BuyBooks buyBooks) {
         this.scanner = scanner;
         this.buyBooks = buyBooks;
