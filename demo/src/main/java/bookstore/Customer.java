@@ -14,7 +14,7 @@ public class Customer extends User{
         boolean success = payment.pay(book.getPrice());
 
         if (success) {
-            System.out.println(name + " purchased: " + book.getTitle());
+            System.out.println(name + " successfully purchased: " + book.getTitle());
         } else {
             System.out.println("Payment failed!");
         }
