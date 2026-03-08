@@ -1,5 +1,6 @@
 package bookstore.MenuRelated.SpecificMenu;
 
+import bookstore.MenuRelated.Buying.BuyBooks;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveBook;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveStaff;
 import bookstore.User.Staff.User;
@@ -17,48 +18,59 @@ public class ManagerMenu extends StaffMenu {
 
     @Override
     public void handleUserMenu(User user) {
-        menu.DisplayMenu(user);
-        
-        System.out.print("Enter your choice: ");
-        int menuChoice = scanner.nextInt();
-        scanner.nextLine();
-        
-        AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner);
-        
-        switch(menuChoice) {
-            case 2:
-                addRemove.addBookFromInput();
-                break;
-            case 3:
-                addRemove.removeBookFromInput();
-                break;
-            case 4:
-                addRemove.displayBookStock();
-                break;
-            case 5:
+        while (true) {
+            menu.DisplayMenu(user);
 
-                AddRemoveStaff addStaff = new AddRemoveStaff(staffList);
-                System.out.print("Enter staff name: ");
-                String staffName = scanner.nextLine();
-                System.out.print("Enter staff email: ");
-                String staffEmail = scanner.nextLine();
-                System.out.print("Enter staff password: ");
-                String staffPassword = scanner.nextLine();
-                addStaff.addStaff(staffName, staffEmail, staffPassword);
-                break;
+            System.out.print("Enter your choice: ");
+            if (!scanner.hasNextInt()) {
+                System.out.println("Invalid choice! Please enter a number.");
+                scanner.nextLine();
+                continue;
+            }
+            int menuChoice = scanner.nextInt();
+            scanner.nextLine();
 
-            case 6:
+            AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner);
 
-                AddRemoveStaff removeStaff = new AddRemoveStaff(staffList);
-                System.out.print("Enter staff name to remove: ");
-                String nameToRemove = scanner.nextLine();
-                removeStaff.removeStaff(nameToRemove);
-                break;
-            case 7:
-                addRemove.displayBookStock();
-                break;
-            default:
-                System.out.println("Invalid choice!");
+            switch(menuChoice) {
+                case 0:
+                    return;
+                case 1:
+                    BuyBooks buyBooks = new BuyBooks(bookStock, scanner);
+                    buyBooks.displayBooksForSale();
+                    break;
+                case 2:
+                    addRemove.addBookFromInput();
+                    break;
+                case 3:
+                    addRemove.removeBookFromInput();
+                    break;
+                case 4:
+                    addRemove.displayBookStock();
+                    break;
+                case 5:
+                    AddRemoveStaff addStaff = new AddRemoveStaff(staffList);
+                    System.out.print("Enter staff name: ");
+                    String staffName = scanner.nextLine();
+                    System.out.print("Enter staff email: ");
+                    String staffEmail = scanner.nextLine();
+                    System.out.print("Enter staff password: ");
+                    String staffPassword = scanner.nextLine();
+                    addStaff.addStaff(staffName, staffEmail, staffPassword);
+                    break;
+                case 6:
+                    AddRemoveStaff removeStaff = new AddRemoveStaff(staffList);
+                    System.out.print("Enter staff name to remove: ");
+                    String nameToRemove = scanner.nextLine();
+                    removeStaff.removeStaff(nameToRemove);
+                    break;
+                case 7:
+                    AddRemoveStaff displayStaff = new AddRemoveStaff(this.staffList);
+                    displayStaff.displayStaff();
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+            }
         }
     }
 }

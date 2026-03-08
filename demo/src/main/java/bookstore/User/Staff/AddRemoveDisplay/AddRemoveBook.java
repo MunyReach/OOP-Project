@@ -53,6 +53,11 @@ public class AddRemoveBook {
         System.out.println("1. Remove by ISBN");
         System.out.println("2. Remove by Title");
         System.out.print("Enter choice: ");
+        if (!scanner.hasNextInt()) {
+            System.out.println("Invalid choice! Please enter a number.");
+            scanner.nextLine();
+            return;
+        }
         int choice = scanner.nextInt();
         scanner.nextLine();
 
@@ -72,4 +77,5 @@ public class AddRemoveBook {
     public void displayBookStock() {
         bookStock.displayAllBooks();
     }
+    
 }

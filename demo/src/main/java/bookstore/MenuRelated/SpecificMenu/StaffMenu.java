@@ -1,6 +1,7 @@
 package bookstore.MenuRelated.SpecificMenu;
 
 import bookstore.MenuRelated.Menu;
+import bookstore.MenuRelated.Buying.BuyBooks;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveBook;
 
 import bookstore.book.BookStock;
@@ -19,26 +20,39 @@ public class StaffMenu {
     }
 
     public void handleUserMenu(User user) {
-        menu.DisplayMenu(user);
-        
-        System.out.print("Enter your choice: ");
-        int menuChoice = scanner.nextInt();
-        scanner.nextLine();
-        
-        AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner);
-        
-        switch(menuChoice) {
-            case 2:
-                addRemove.addBookFromInput();
-                break;
-            case 3:
-                addRemove.removeBookFromInput();
-                break;
-            case 4:
-                addRemove.displayBookStock();
-                break;
-            default:
-                System.out.println("Invalid choice!");
+        while (true) {
+            menu.DisplayMenu(user);
+
+            System.out.print("Enter your choice: ");
+            if (!scanner.hasNextInt()) {
+                System.out.println("Invalid choice! Please enter a number.");
+                scanner.nextLine();
+                continue;
+            }
+            int menuChoice = scanner.nextInt();
+            scanner.nextLine();
+
+            AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner);
+
+            switch(menuChoice) {
+                case 0:
+                    return;
+                case 1:
+                    BuyBooks buyBooks = new BuyBooks(bookStock, scanner);
+                    buyBooks.displayBooksForSale();
+                    break;
+                case 2:
+                    addRemove.addBookFromInput();
+                    break;
+                case 3:
+                    addRemove.removeBookFromInput();
+                    break;
+                case 4:
+                    addRemove.displayBookStock();
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+            }
         }
     }
 }

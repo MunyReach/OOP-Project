@@ -20,6 +20,7 @@ public class BookStock {
         if (book != null) {
             books.add(book);
             System.out.println("✓ Book added: " + book.getTitle() + " by " + book.getAuthor());
+            displayAllBooks();
         } else {
             System.out.println("✗ Cannot add null book!");
         }

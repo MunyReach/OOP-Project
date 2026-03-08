@@ -3,15 +3,18 @@ package bookstore.auth;
 import bookstore.User.Staff.Staff;
 import bookstore.User.Staff.StaffList;
 import bookstore.User.Staff.User;
-import java.util.ArrayList;
-import java.util.List;
+import bookstore.defaults.DefaultStaffData;
 import java.util.Scanner;
 
 public class StaffLoginHandler implements LoginHandler {
     private final StaffList staffList;
 
+    public StaffLoginHandler(StaffList staffList) {
+        this.staffList = staffList;
+    }
+
     public StaffLoginHandler() {
-        this.staffList = createStaffList();
+        this.staffList = new StaffList(DefaultStaffData.createDefaultStaffMembers());
     }
 
     @Override
@@ -33,10 +36,6 @@ public class StaffLoginHandler implements LoginHandler {
     }
 
     private StaffList createStaffList() {
-        List<User> staffMembers = new ArrayList<>();
-        staffMembers.add(new Staff("A", "A@store.com", "A123"));
-        staffMembers.add(new Staff("B", "B@store.com", "B123"));
-        staffMembers.add(new Staff("C", "C@store.com", "C123"));
-        return new StaffList(staffMembers);
+        return new StaffList(DefaultStaffData.createDefaultStaffMembers());
     }
 }

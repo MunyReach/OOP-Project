@@ -1,5 +1,6 @@
 package bookstore.MenuRelated.SpecificMenu;
 
+import bookstore.MenuRelated.Buying.BuyBooks;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveBook;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveStaff;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveManager;
@@ -19,61 +20,79 @@ public class OwnerMenu extends ManagerMenu {
 
     @Override
     public void handleUserMenu(User user) {
-        menu.DisplayMenu(user);
-        
-        System.out.print("Enter your choice: ");
-        int menuChoice = scanner.nextInt();
-        scanner.nextLine();
-        
-        AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner);
-        
-        switch(menuChoice) {
-            case 2:
-                addRemove.addBookFromInput();
-                break;
-            case 3:
-                addRemove.removeBookFromInput();
-                break;
-            case 4:
-                addRemove.displayBookStock();
-                break;
-            case 5:
-                AddRemoveStaff addStaff = new AddRemoveStaff(super.staffList);
-                System.out.print("Enter staff name: ");
-                String staffName = scanner.nextLine();
-                System.out.print("Enter staff email: ");
-                String staffEmail = scanner.nextLine();
-                System.out.print("Enter staff password: ");
-                String staffPassword = scanner.nextLine();
-                addStaff.addStaff(staffName, staffEmail, staffPassword);
-                break;
-            case 6:
-                AddRemoveStaff removeStaff = new AddRemoveStaff(super.staffList);
-                System.out.print("Enter staff name to remove: ");
-                String nameToRemove = scanner.nextLine();
-                removeStaff.removeStaff(nameToRemove);
-                break;
-            case 7:
-                AddRemoveManager addManager = new AddRemoveManager(managerList);
-                System.out.print("Enter manager name: ");
-                String managerName = scanner.nextLine();
-                System.out.print("Enter manager email: ");
-                String managerEmail = scanner.nextLine();
-                System.out.print("Enter manager password: ");
-                String managerPassword = scanner.nextLine();
-                addManager.addManager(managerName, managerEmail, managerPassword);
-                break;
-            case 8:
-                AddRemoveManager removeManager = new AddRemoveManager(managerList);
-                System.out.print("Enter manager name to remove: ");
-                String nameToRemoves = scanner.nextLine();
-                removeManager.removeManager(nameToRemoves);
-                break;
-            case 9:
-                addRemove.displayBookStock();
-                break;
-            default:
-                System.out.println("Invalid choice!");
+        while (true) {
+            menu.DisplayMenu(user);
+
+            System.out.print("Enter your choice: ");
+            if (!scanner.hasNextInt()) {
+                System.out.println("Invalid choice! Please enter a number.");
+                scanner.nextLine();
+                continue;
+            }
+            int menuChoice = scanner.nextInt();
+            scanner.nextLine();
+
+            AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner);
+
+            switch(menuChoice) {
+                case 0:
+                    return;
+                case 1:
+                    BuyBooks buyBooks = new BuyBooks(bookStock, scanner);
+                    buyBooks.displayBooksForSale();
+                    break;
+                case 2:
+                    addRemove.addBookFromInput();
+                    break;
+                case 3:
+                    addRemove.removeBookFromInput();
+                    break;
+                case 4:
+                    addRemove.displayBookStock();
+                    break;
+                case 5:
+                    AddRemoveStaff addStaff = new AddRemoveStaff(super.staffList);
+                    System.out.print("Enter staff name: ");
+                    String staffName = scanner.nextLine();
+                    System.out.print("Enter staff email: ");
+                    String staffEmail = scanner.nextLine();
+                    System.out.print("Enter staff password: ");
+                    String staffPassword = scanner.nextLine();
+                    addStaff.addStaff(staffName, staffEmail, staffPassword);
+                    break;
+                case 6:
+                    AddRemoveStaff removeStaff = new AddRemoveStaff(super.staffList);
+                    System.out.print("Enter staff name to remove: ");
+                    String nameToRemove = scanner.nextLine();
+                    removeStaff.removeStaff(nameToRemove);
+                    break;
+                case 7:
+                    AddRemoveManager addManager = new AddRemoveManager(managerList);
+                    System.out.print("Enter manager name: ");
+                    String managerName = scanner.nextLine();
+                    System.out.print("Enter manager email: ");
+                    String managerEmail = scanner.nextLine();
+                    System.out.print("Enter manager password: ");
+                    String managerPassword = scanner.nextLine();
+                    addManager.addManager(managerName, managerEmail, managerPassword);
+                    break;
+                case 8:
+                    AddRemoveManager removeManager = new AddRemoveManager(managerList);
+                    System.out.print("Enter manager name to remove: ");
+                    String nameToRemoves = scanner.nextLine();
+                    removeManager.removeManager(nameToRemoves);
+                    break;
+                case 9:
+                    AddRemoveStaff displayStaff = new AddRemoveStaff(super.staffList);
+                    displayStaff.displayStaff();
+                    break;
+                case 10:
+                    AddRemoveManager displayManager = new AddRemoveManager(managerList);
+                    displayManager.displayManagers();
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+            }
         }
     }
 }
