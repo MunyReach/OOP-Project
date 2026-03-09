@@ -4,6 +4,7 @@ import java.util.Scanner;
 import bookstore.Book;
 import bookstore.Payment.CreditCardPayment;
 import bookstore.Payment.PaymentMethod;
+import bookstore.Receipt.Receipt;
 
 public class Buyingbook {
 
@@ -23,6 +24,8 @@ public class Buyingbook {
                 // Ask to buy more
                 BuyMoreBook buyMore = new BuyMoreBook(scanner, buyBooks);
                 buyMore.askToBuyMore();
+                Receipt receipt = new Receipt();
+                receipt.generateReciept(book.getTitle(), book.getAuthor(), book.getPrice(), 1);
                 
             } else {
                 System.out.println("Payment failed.");
