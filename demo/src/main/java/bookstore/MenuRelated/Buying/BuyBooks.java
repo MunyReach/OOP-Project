@@ -2,18 +2,19 @@ package bookstore.MenuRelated.Buying;
 
 //new import 
 import bookstore.Book;
-import bookstore.book.BookStock;
+import bookstore.book.bookstk;
+import bookstore.book.bookstk;
 
 import java.util.Scanner;
 
 public class BuyBooks {
 
-    private BookStock bookStock;
+    private bookstk bookStock;
     private Buyingbook buyer = new Buyingbook();
     private Scanner scanner;
 
     // Constructor receives shared book stock and scanner
-    public BuyBooks(BookStock bookStock, Scanner scanner) {
+    public BuyBooks(bookstk bookStock, Scanner scanner) {
         this.bookStock = bookStock;
         this.scanner = scanner;
     }

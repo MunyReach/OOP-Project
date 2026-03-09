@@ -5,13 +5,15 @@ import bookstore.User.Staff.AddRemoveDisplay.AddRemoveBook;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveStaff;
 import bookstore.User.Staff.User;
 import bookstore.User.Staff.StaffList;
-import bookstore.book.BookStock;
+import bookstore.book.bookstk;
+
+
 import java.util.Scanner;
 
 public class ManagerMenu extends StaffMenu {
     protected StaffList staffList;
     
-    public ManagerMenu(BookStock bookStock, Scanner scanner, StaffList staffList) {
+    public ManagerMenu(bookstk bookStock, Scanner scanner, StaffList staffList) {
         super(bookStock, scanner);
         this.staffList = staffList;
     }

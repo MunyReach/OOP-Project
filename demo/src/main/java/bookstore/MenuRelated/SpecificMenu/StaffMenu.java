@@ -4,16 +4,16 @@ import bookstore.MenuRelated.Menu;
 import bookstore.MenuRelated.Buying.BuyBooks;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveBook;
 
-import bookstore.book.BookStock;
+import bookstore.book.bookstk;
 import bookstore.User.Staff.User;
 import java.util.Scanner;
 
 public class StaffMenu {
     protected Menu menu;
-    protected BookStock bookStock;
+    protected bookstk bookStock;
     protected Scanner scanner;
 
-    public StaffMenu(BookStock bookStock, Scanner scanner) {
+    public StaffMenu(bookstk bookStock, Scanner scanner) {
         this.menu = new Menu();
         this.bookStock = bookStock;
         this.scanner = scanner;

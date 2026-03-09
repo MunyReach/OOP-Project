@@ -7,13 +7,13 @@ import bookstore.User.Staff.AddRemoveDisplay.AddRemoveManager;
 import bookstore.User.Staff.User;
 import bookstore.User.Staff.StaffList;
 import bookstore.User.Staff.ManagerList;
-import bookstore.book.BookStock;
+import bookstore.book.bookstk;
 import java.util.Scanner;
 
 public class OwnerMenu extends ManagerMenu {
     private ManagerList managerList;
     
-    public OwnerMenu(BookStock bookStock, Scanner scanner, StaffList staffList, ManagerList managerList) {
+    public OwnerMenu(bookstk bookStock, Scanner scanner, StaffList staffList, ManagerList managerList) {
         super(bookStock, scanner, staffList);
         this.managerList = managerList;
     }

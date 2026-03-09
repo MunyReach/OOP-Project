@@ -4,14 +4,14 @@ import bookstore.Book;
 import java.util.List;
 import java.util.ArrayList;
 
-public class BookStock {
+public class bookstk {
     private List<Book> books;
 
-    public BookStock() {
+    public bookstk() {
         this.books = new ArrayList<>();
     }
 
-    public BookStock(List<Book> books) {
+    public bookstk(List<Book> books) {
         this.books = books;
     }
 

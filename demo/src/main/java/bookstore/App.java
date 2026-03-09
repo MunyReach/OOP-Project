@@ -9,14 +9,16 @@ import bookstore.auth.LoginHandler;
 import bookstore.auth.ManagerLoginHandler;
 import bookstore.auth.OwnerLoginHandler;
 import bookstore.auth.StaffLoginHandler;
-import bookstore.book.BookStock;
 import bookstore.defaults.DefaultBookData;
 import bookstore.defaults.DefaultManagerData;
 import bookstore.defaults.DefaultStaffData;
 import bookstore.User.Staff.User;
 import bookstore.User.Staff.StaffList;
 import bookstore.User.Staff.ManagerList;
+
+
 import java.util.Scanner;
+
 
 public class App {
     public static void main(String[] args) {
@@ -30,7 +32,7 @@ public class App {
         LoginHandler ownerLoginHandler = new OwnerLoginHandler();
         LoginHandler managerLoginHandler = new ManagerLoginHandler(managerList);
         LoginHandler staffLoginHandler = new StaffLoginHandler(staffList);
-        BookStock bookStock = new BookStock(DefaultBookData.createDefaultBooks());
+        bookstore.book.bookstk bookStock = new bookstore.book.bookstk(DefaultBookData.createDefaultBooks());
         
         System.out.println("====== Welcome to Bookstore ======\n");
 
