@@ -1,6 +1,5 @@
 package bookstore.MenuRelated.SpecificMenu;
 
-import bookstore.MenuRelated.Buying.BuyBooks;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveBook;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveStaff;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveManager;
@@ -38,19 +37,15 @@ public class OwnerMenu extends ManagerMenu {
                 case 0:
                     return;
                 case 1:
-                    BuyBooks buyBooks = new BuyBooks(bookStock, scanner);
-                    buyBooks.displayBooksForSale();
-                    break;
-                case 2:
                     addRemove.addBookFromInput();
                     break;
-                case 3:
+                case 2:
                     addRemove.removeBookFromInput();
                     break;
-                case 4:
+                case 3:
                     addRemove.displayBookStock();
                     break;
-                case 5:
+                case 4:
                     AddRemoveStaff addStaff = new AddRemoveStaff(super.staffList);
                     System.out.print("Enter staff name: ");
                     String staffName = scanner.nextLine();
@@ -60,13 +55,13 @@ public class OwnerMenu extends ManagerMenu {
                     String staffPassword = scanner.nextLine();
                     addStaff.addStaff(staffName, staffEmail, staffPassword);
                     break;
-                case 6:
+                case 5:
                     AddRemoveStaff removeStaff = new AddRemoveStaff(super.staffList);
                     System.out.print("Enter staff name to remove: ");
                     String nameToRemove = scanner.nextLine();
                     removeStaff.removeStaff(nameToRemove);
                     break;
-                case 7:
+                case 6:
                     AddRemoveManager addManager = new AddRemoveManager(managerList);
                     System.out.print("Enter manager name: ");
                     String managerName = scanner.nextLine();
@@ -76,17 +71,17 @@ public class OwnerMenu extends ManagerMenu {
                     String managerPassword = scanner.nextLine();
                     addManager.addManager(managerName, managerEmail, managerPassword);
                     break;
-                case 8:
+                case 7:
                     AddRemoveManager removeManager = new AddRemoveManager(managerList);
                     System.out.print("Enter manager name to remove: ");
                     String nameToRemoves = scanner.nextLine();
                     removeManager.removeManager(nameToRemoves);
                     break;
-                case 9:
+                case 8:
                     AddRemoveStaff displayStaff = new AddRemoveStaff(super.staffList);
                     displayStaff.displayStaff();
                     break;
-                case 10:
+                case 9:
                     AddRemoveManager displayManager = new AddRemoveManager(managerList);
                     displayManager.displayManagers();
                     break;

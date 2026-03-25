@@ -9,4 +9,9 @@ public class Staff extends User {
     public String getRole() {
         return "Staff";
     }
+
+    @Override
+    public boolean canMakeOrder() {
+        return true;
+    }
 }

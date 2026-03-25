@@ -1,7 +1,6 @@
 package bookstore;
 
 import bookstore.MenuRelated.Menu;
-import bookstore.MenuRelated.Buying.BuyBooks;
 import bookstore.MenuRelated.SpecificMenu.OwnerMenu;
 import bookstore.MenuRelated.SpecificMenu.ManagerMenu;
 import bookstore.MenuRelated.SpecificMenu.StaffMenu;
@@ -64,11 +63,6 @@ public class App {
                     break;
                 case 3:
                     user = staffLoginHandler.login(scanner);
-                    break;
-                case 4:
-                    // Buy books as guest
-                    BuyBooks buyBooks = new BuyBooks(bookStock, scanner);
-                    buyBooks.displayBooksForSale();
                     break;
                 default:
                     System.out.println("Invalid choice!");

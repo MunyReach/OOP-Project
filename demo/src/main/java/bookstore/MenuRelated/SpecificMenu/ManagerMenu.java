@@ -1,6 +1,5 @@
 package bookstore.MenuRelated.SpecificMenu;
 
-import bookstore.MenuRelated.Buying.BuyBooks;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveBook;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveStaff;
 import bookstore.User.Staff.User;
@@ -38,19 +37,15 @@ public class ManagerMenu extends StaffMenu {
                 case 0:
                     return;
                 case 1:
-                    BuyBooks buyBooks = new BuyBooks(bookStock, scanner);
-                    buyBooks.displayBooksForSale();
-                    break;
-                case 2:
                     addRemove.addBookFromInput();
                     break;
-                case 3:
+                case 2:
                     addRemove.removeBookFromInput();
                     break;
-                case 4:
+                case 3:
                     addRemove.displayBookStock();
                     break;
-                case 5:
+                case 4:
                     AddRemoveStaff addStaff = new AddRemoveStaff(staffList);
                     System.out.print("Enter staff name: ");
                     String staffName = scanner.nextLine();
@@ -60,13 +55,13 @@ public class ManagerMenu extends StaffMenu {
                     String staffPassword = scanner.nextLine();
                     addStaff.addStaff(staffName, staffEmail, staffPassword);
                     break;
-                case 6:
+                case 5:
                     AddRemoveStaff removeStaff = new AddRemoveStaff(staffList);
                     System.out.print("Enter staff name to remove: ");
                     String nameToRemove = scanner.nextLine();
                     removeStaff.removeStaff(nameToRemove);
                     break;
-                case 7:
+                case 6:
                     AddRemoveStaff displayStaff = new AddRemoveStaff(this.staffList);
                     displayStaff.displayStaff();
                     break;

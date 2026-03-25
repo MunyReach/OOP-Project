@@ -12,6 +12,11 @@ public class Manager extends User{
         return "Manager";
     }
 
+    @Override
+    public boolean canMakeOrder() {
+        return false;
+    }
+
 
 }
 

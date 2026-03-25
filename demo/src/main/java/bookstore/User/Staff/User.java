@@ -1,6 +1,6 @@
 package bookstore.User.Staff;
 
-public abstract class User {
+public abstract class User implements OrderPermission {
     protected String name;
     protected String email;
     private String password;
@@ -23,6 +23,9 @@ public abstract class User {
 
 
     public abstract String getRole();
+
+    @Override
+    public abstract boolean canMakeOrder();
 
     //
     

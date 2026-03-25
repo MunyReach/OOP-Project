@@ -1,7 +1,7 @@
 package bookstore.MenuRelated.SpecificMenu;
 
 import bookstore.MenuRelated.Menu;
-import bookstore.MenuRelated.Buying.BuyBooks;
+import bookstore.MenuRelated.Buying.OrderBooks;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveBook;
 
 import bookstore.book.bookstk;
@@ -38,8 +38,8 @@ public class StaffMenu {
                 case 0:
                     return;
                 case 1:
-                    BuyBooks buyBooks = new BuyBooks(bookStock, scanner);
-                    buyBooks.displayBooksForSale();
+                    OrderBooks orderBooks = new OrderBooks(bookStock, scanner, user);
+                    orderBooks.displayBooksForOrder();
                     break;
                 case 2:
                     addRemove.addBookFromInput();

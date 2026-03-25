@@ -1,30 +1,44 @@
 package bookstore.MenuRelated.Buying;
 
-//new import 
 import bookstore.Book;
 import bookstore.book.bookstk;
 import bookstore.Payment.CreditCardPayment;
 import bookstore.Payment.PaymentMethod;
 import bookstore.Receipt.Receipt;
+import bookstore.User.Staff.User;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class BuyBooks {
+public class OrderBooks {
 
     private bookstk bookStock;
     private Scanner scanner;
+    private User currentUser;
 
     // Constructor receives shared book stock and scanner
-    public BuyBooks(bookstk bookStock, Scanner scanner) {
+    public OrderBooks(bookstk bookStock, Scanner scanner) {
         this.bookStock = bookStock;
         this.scanner = scanner;
     }
 
-    public void displayBooksForSale() {
+    // Constructor also binds the currently logged-in user for permission checks
+    public OrderBooks(bookstk bookStock, Scanner scanner, User currentUser) {
+        this.bookStock = bookStock;
+        this.scanner = scanner;
+        this.currentUser = currentUser;
+    }
 
-        System.out.println("Books available for sale:");
+    // Main order flow: validates ID and quantity, processes payment, and updates stock
+    public void displayBooksForOrder() {
+
+        if (currentUser == null || !currentUser.canMakeOrder()) {
+            System.out.println("Only staff can make order.");
+            return;
+        }
+
+        System.out.println("Books available for order:");
 
         if (bookStock.isEmpty()) {
             System.out.println("No books in stock.");
@@ -40,9 +54,9 @@ public class BuyBooks {
 
         while (true) {
             System.out.println();
-            System.out.println("Enter 001 to " + String.format("%03d", bookStock.getBooks().size()) + " to buy that book");
+            System.out.println("Enter 001 to " + String.format("%03d", bookStock.getBooks().size()) + " to order that book");
             System.out.println("Enter 000 to cancel and return");
-            System.out.print("Enter your command: ");
+            System.out.print("Enter your ID: ");
             String bookIdInput = scanner.nextLine().trim();
 
             if ("000".equals(bookIdInput)) {
@@ -122,6 +136,7 @@ public class BuyBooks {
         System.out.println("Thank you for shopping with us!");
     }
 
+    // Reads and validates quantity input (must be numeric and between 1 and 5)
     private int readValidQuantity() {
         System.out.print("-> Enter Quantity of the Books: ");
         String quantityInput = scanner.nextLine().trim();
@@ -140,6 +155,7 @@ public class BuyBooks {
         return quantity;
     }
 
+    // Asks whether the user wants to continue ordering more books
     private boolean askToOrderMore() {
         while (true) {
             System.out.print("Do you want to order more books? (Y/N): ");
@@ -156,6 +172,7 @@ public class BuyBooks {
         }
     }
 
+    // Utility checker to ensure an input string contains only digits
     private boolean isAllDigits(String text) {
         for (int i = 0; i < text.length(); i++) {
             if (!Character.isDigit(text.charAt(i))) {
@@ -165,4 +182,3 @@ public class BuyBooks {
         return true;
     }
 }
-

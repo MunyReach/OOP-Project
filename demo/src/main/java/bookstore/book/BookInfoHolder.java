@@ -22,7 +22,7 @@ public class BookInfoHolder {
         return books;
     }
 
-    // Method to display boook in stock to buy
+    // Method to display book in stock to order
     public void displayBooks() {
         for (int i = 0; i < books.size(); i++) {
             System.out.print((i+1) + ". ");

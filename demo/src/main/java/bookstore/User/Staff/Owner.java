@@ -11,5 +11,10 @@ public class Owner extends User {
         return "Owner";
     }
 
+    @Override
+    public boolean canMakeOrder() {
+        return false;
+    }
+
 
 }
