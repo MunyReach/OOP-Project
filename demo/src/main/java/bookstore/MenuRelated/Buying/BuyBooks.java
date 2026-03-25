@@ -3,14 +3,17 @@ package bookstore.MenuRelated.Buying;
 //new import 
 import bookstore.Book;
 import bookstore.book.bookstk;
-import bookstore.book.bookstk;
+import bookstore.Payment.CreditCardPayment;
+import bookstore.Payment.PaymentMethod;
+import bookstore.Receipt.Receipt;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class BuyBooks {
 
     private bookstk bookStock;
-    private Buyingbook buyer = new Buyingbook();
     private Scanner scanner;
 
     // Constructor receives shared book stock and scanner
@@ -28,36 +31,138 @@ public class BuyBooks {
             return;
         }
 
-        for (int i = 0; i < bookStock.getBooks().size(); i++) {
-            System.out.print((i + 1) + ". ");
-            bookStock.getBooks().get(i).displayInfo();
+        for (Book book : bookStock.getBooks()) {
+            book.displayInfo();
         }
 
-        System.out.println("\nCommand Guide:");
-        System.out.println("- Enter 1 to " + bookStock.getBooks().size() + " to buy that book");
-        System.out.println("- Enter 0 to cancel and return");
+        List<Book> orderedBooks = new ArrayList<>();
+        List<Integer> orderedQuantities = new ArrayList<>();
 
-        System.out.print("Enter your command: ");
-        if (!scanner.hasNextInt()) {
-            System.out.println("Invalid selection. Please enter a number.");
-            scanner.nextLine();
+        while (true) {
+            System.out.println();
+            System.out.println("Enter 001 to " + String.format("%03d", bookStock.getBooks().size()) + " to buy that book");
+            System.out.println("Enter 000 to cancel and return");
+            System.out.print("Enter your command: ");
+            String bookIdInput = scanner.nextLine().trim();
+
+            if ("000".equals(bookIdInput)) {
+                System.out.println("Order canceled.");
+                return;
+            }
+
+            if (bookIdInput.length() != 3 || !isAllDigits(bookIdInput)) {
+                System.out.println("Invalid ID.");
+                continue;
+            }
+
+            int bookId = Integer.parseInt(bookIdInput);
+            if (bookId <= 0 || bookId > 999) {
+                System.out.println("Invalid ID.");
+                continue;
+            }
+
+            Book selected = bookStock.findBookById(bookId);
+            if (selected == null) {
+                System.out.println("Invalid ID.");
+                continue;
+            }
+
+            int quantity = readValidQuantity();
+            if (quantity == -1) {
+                continue;
+            }
+
+            int existingIndex = orderedBooks.indexOf(selected);
+            int alreadyOrdered = existingIndex >= 0 ? orderedQuantities.get(existingIndex) : 0;
+            int newTotalForBook = alreadyOrdered + quantity;
+
+            if (newTotalForBook > 5) {
+                System.out.println("Invalid amount.");
+                continue;
+            }
+
+            if (newTotalForBook > selected.getQuantity()) {
+                System.out.println("Invalid amount.");
+                continue;
+            }
+
+            if (existingIndex >= 0) {
+                orderedQuantities.set(existingIndex, newTotalForBook);
+            } else {
+                orderedBooks.add(selected);
+                orderedQuantities.add(quantity);
+            }
+
+            if (!askToOrderMore()) {
+                break;
+            }
+        }
+
+        double totalAmount = 0.0;
+        for (int i = 0; i < orderedBooks.size(); i++) {
+            totalAmount += orderedBooks.get(i).getPrice() * orderedQuantities.get(i);
+        }
+
+        PaymentMethod payment = new CreditCardPayment(scanner);
+        boolean success = payment.pay(totalAmount);
+
+        if (!success) {
+            System.out.println("Payment failed.");
             return;
         }
-        int choice = scanner.nextInt();
-        scanner.nextLine(); // consume leftover newline
 
-        if (choice == 0) {
-            System.out.println("Purchase canceled.");
-            return;
+        for (int i = 0; i < orderedBooks.size(); i++) {
+            Book book = orderedBooks.get(i);
+            int quantity = orderedQuantities.get(i);
+            book.reduceQuantity(quantity);
+            Receipt.generateReciept(book.getTitle(), book.getAuthor(), book.getPrice(), quantity);
         }
 
-        if (choice >= 1 && choice <= bookStock.getBooks().size()) {
-            Book selected = bookStock.getBooks().get(choice - 1);
-            buyer.buyBook(selected, scanner, this); // pass scanner and this BuyBooks
-        } else {
-            System.out.println("Invalid selection.");
+        System.out.println("Total order amount: $" + totalAmount);
+        System.out.println("Thank you for shopping with us!");
+    }
+
+    private int readValidQuantity() {
+        System.out.print("-> Enter Quantity of the Books: ");
+        String quantityInput = scanner.nextLine().trim();
+
+        if (quantityInput.isEmpty() || !isAllDigits(quantityInput)) {
+            System.out.println("Invalid amount.");
+            return -1;
         }
 
+        int quantity = Integer.parseInt(quantityInput);
+        if (quantity <= 0 || quantity > 5) {
+            System.out.println("Invalid amount.");
+            return -1;
+        }
+
+        return quantity;
+    }
+
+    private boolean askToOrderMore() {
+        while (true) {
+            System.out.print("Do you want to order more books? (Y/N): ");
+            String response = scanner.nextLine().trim();
+
+            if (response.equalsIgnoreCase("y")) {
+                return true;
+            }
+            if (response.equalsIgnoreCase("n")) {
+                return false;
+            }
+
+            System.out.println("Invalid choice.");
+        }
+    }
+
+    private boolean isAllDigits(String text) {
+        for (int i = 0; i < text.length(); i++) {
+            if (!Character.isDigit(text.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 

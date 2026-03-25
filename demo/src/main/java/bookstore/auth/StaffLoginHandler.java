@@ -1,6 +1,5 @@
 package bookstore.auth;
 
-import bookstore.User.Staff.Staff;
 import bookstore.User.Staff.StaffList;
 import bookstore.User.Staff.User;
 import bookstore.defaults.DefaultStaffData;
@@ -35,7 +34,5 @@ public class StaffLoginHandler implements LoginHandler {
         return null;
     }
 
-    private StaffList createStaffList() {
-        return new StaffList(DefaultStaffData.createDefaultStaffMembers());
-    }
+
 }

@@ -71,10 +71,19 @@ public class bookstk {
         
         System.out.println("\n===== Book Stock =====");
         for (int i = 0; i < books.size(); i++) {
-            System.out.print((i + 1) + ". ");
             books.get(i).displayInfo();
         }
         System.out.println("Total books: " + books.size());
+    }
+
+    // Find book by ID
+    public Book findBookById(int id) {
+        for (Book book : books) {
+            if (book.getBookId() == id) {
+                return book;
+            }
+        }
+        return null;
     }
 
     // Find book by ISBN

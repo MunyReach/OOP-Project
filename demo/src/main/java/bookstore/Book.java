@@ -1,6 +1,9 @@
 package bookstore;
 
 public class Book {
+    private static int nextBookId = 1;
+
+    private int bookId;
     private String title;
     private String author;
     private String isbn;
@@ -9,12 +12,21 @@ public class Book {
     private int quantity;
 
     public Book(String title, String author, String isbn, double price, String category) {
+        this.bookId = nextBookId++;
         this.title = title;
         this.author = author;
         this.isbn = isbn;
         this.price = price;
         this.category = category;
         this.quantity = 5; // default quantity
+    }
+
+    public int getBookId() {
+        return bookId;
+    }
+
+    public String getFormattedBookId() {
+        return String.format("%03d", bookId);
     }
 
     public String getTitle() {
@@ -36,6 +48,11 @@ public class Book {
     public String getCategory() {
         return category;
     }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
     //Change by Liya; adding displayinfo here and quatity
 
     public boolean isAvailable() { return quantity > 0; }
@@ -46,7 +63,7 @@ public class Book {
     }
 
     public void displayInfo() {
-        System.out.println(title + " by " + author + " - $" + price + " (" + quantity + " left)");
+        System.out.println("[" + getFormattedBookId() + "] " + title + " by " + author + " - $" + price + " (" + quantity + " left)");
     }
 }
 
