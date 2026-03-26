@@ -1,23 +1,26 @@
 package bookstore.MenuRelated.SpecificMenu;
 
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveBook;
-import bookstore.User.Staff.AddRemoveDisplay.AddRemoveStaff;
 import bookstore.User.Staff.User;
-import bookstore.User.Staff.StaffList;
+import bookstore.User.Staff.CashierList;
 import bookstore.book.bookstk;
 
 
 import java.util.Scanner;
 
-public class ManagerMenu extends StaffMenu {
-    protected StaffList staffList;
+public class ManagerMenu {
+    protected bookstore.MenuRelated.Menu menu;
+    protected bookstk bookStock;
+    protected Scanner scanner;
+    protected CashierList cashierList;
     
-    public ManagerMenu(bookstk bookStock, Scanner scanner, StaffList staffList) {
-        super(bookStock, scanner);
-        this.staffList = staffList;
+    public ManagerMenu(bookstk bookStock, Scanner scanner, CashierList cashierList) {
+        this.menu = new bookstore.MenuRelated.Menu();
+        this.bookStock = bookStock;
+        this.scanner = scanner;
+        this.cashierList = cashierList;
     }
 
-    @Override
     public void handleUserMenu(User user) {
         while (true) {
             menu.DisplayMenu(user);
@@ -35,39 +38,29 @@ public class ManagerMenu extends StaffMenu {
 
             switch(menuChoice) {
                 case 0:
+                    System.out.println("Logging out...\n");
                     return;
                 case 1:
-                    addRemove.addBookFromInput();
-                    break;
-                case 2:
-                    addRemove.removeBookFromInput();
-                    break;
-                case 3:
                     addRemove.displayBookStock();
                     break;
+                case 2:
+                    displaySaleInfo();
+                    break;
+                case 3:
+                    addRemove.addBookFromInput();
+                    break;
                 case 4:
-                    AddRemoveStaff addStaff = new AddRemoveStaff(staffList);
-                    System.out.print("Enter staff name: ");
-                    String staffName = scanner.nextLine();
-                    System.out.print("Enter staff email: ");
-                    String staffEmail = scanner.nextLine();
-                    System.out.print("Enter staff password: ");
-                    String staffPassword = scanner.nextLine();
-                    addStaff.addStaff(staffName, staffEmail, staffPassword);
-                    break;
-                case 5:
-                    AddRemoveStaff removeStaff = new AddRemoveStaff(staffList);
-                    System.out.print("Enter staff name to remove: ");
-                    String nameToRemove = scanner.nextLine();
-                    removeStaff.removeStaff(nameToRemove);
-                    break;
-                case 6:
-                    AddRemoveStaff displayStaff = new AddRemoveStaff(this.staffList);
-                    displayStaff.displayStaff();
+                    addRemove.removeBookFromInput();
                     break;
                 default:
                     System.out.println("Invalid choice!");
             }
         }
+    }
+
+    protected void displaySaleInfo() {
+        System.out.println("\n===== Sales Information =====");
+        System.out.println("Sale Report Feature Coming Soon");
+        System.out.println("===============================\n");
     }
 }

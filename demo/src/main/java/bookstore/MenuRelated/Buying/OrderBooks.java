@@ -34,7 +34,7 @@ public class OrderBooks {
     public void displayBooksForOrder() {
 
         if (currentUser == null || !currentUser.canMakeOrder()) {
-            System.out.println("Only staff can make order.");
+            System.out.println("Only cashier can make order.");
             return;
         }
 

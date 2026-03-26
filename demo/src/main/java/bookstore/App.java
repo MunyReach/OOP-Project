@@ -3,16 +3,16 @@ package bookstore;
 import bookstore.MenuRelated.Menu;
 import bookstore.MenuRelated.SpecificMenu.OwnerMenu;
 import bookstore.MenuRelated.SpecificMenu.ManagerMenu;
-import bookstore.MenuRelated.SpecificMenu.StaffMenu;
+import bookstore.MenuRelated.SpecificMenu.CashierMenu;
 import bookstore.auth.LoginHandler;
 import bookstore.auth.ManagerLoginHandler;
 import bookstore.auth.OwnerLoginHandler;
-import bookstore.auth.StaffLoginHandler;
+import bookstore.auth.CashierLoginHandler;
 import bookstore.defaults.DefaultBookData;
 import bookstore.defaults.DefaultManagerData;
 import bookstore.defaults.DefaultStaffData;
 import bookstore.User.Staff.User;
-import bookstore.User.Staff.StaffList;
+import bookstore.User.Staff.CashierList;
 import bookstore.User.Staff.ManagerList;
 
 
@@ -24,13 +24,13 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         Menu menu = new Menu();
         
-        // Initialize staff and manager lists
-        StaffList staffList = new StaffList(DefaultStaffData.createDefaultStaffMembers());
+        // Initialize cashier and manager lists
+        CashierList cashierList = new CashierList(DefaultStaffData.createDefaultStaffMembers());
         ManagerList managerList = new ManagerList(DefaultManagerData.createDefaultManagers());
         
         LoginHandler ownerLoginHandler = new OwnerLoginHandler();
         LoginHandler managerLoginHandler = new ManagerLoginHandler(managerList);
-        LoginHandler staffLoginHandler = new StaffLoginHandler(staffList);
+        LoginHandler cashierLoginHandler = new CashierLoginHandler(cashierList);
         bookstore.book.bookstk bookStock = new bookstore.book.bookstk(DefaultBookData.createDefaultBooks());
         
         System.out.println("====== Welcome to Bookstore ======\n");
@@ -62,7 +62,7 @@ public class App {
                     user = managerLoginHandler.login(scanner);
                     break;
                 case 3:
-                    user = staffLoginHandler.login(scanner);
+                    user = cashierLoginHandler.login(scanner);
                     break;
                 default:
                     System.out.println("Invalid choice!");
@@ -74,14 +74,14 @@ public class App {
                 System.out.println();
 
                 if (user.getRole().equals("Owner")) {
-                    OwnerMenu ownerMenu = new OwnerMenu(bookStock, scanner, staffList, managerList);
+                    OwnerMenu ownerMenu = new OwnerMenu(bookStock, scanner, cashierList, managerList);
                     ownerMenu.handleUserMenu(user);
                 } else if (user.getRole().equals("Manager")) {
-                    ManagerMenu managerMenu = new ManagerMenu(bookStock, scanner, staffList);
+                    ManagerMenu managerMenu = new ManagerMenu(bookStock, scanner, cashierList);
                     managerMenu.handleUserMenu(user);
-                } else if (user.getRole().equals("Staff")) {
-                    StaffMenu staffMenu = new StaffMenu(bookStock, scanner);
-                    staffMenu.handleUserMenu(user);
+                } else if (user.getRole().equals("Cashier")) {
+                    CashierMenu cashierMenu = new CashierMenu(bookStock, scanner);
+                    cashierMenu.handleUserMenu(user);
                 }
             }
         }

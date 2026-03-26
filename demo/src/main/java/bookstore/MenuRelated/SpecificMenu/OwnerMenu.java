@@ -1,23 +1,29 @@
 package bookstore.MenuRelated.SpecificMenu;
 
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveBook;
-import bookstore.User.Staff.AddRemoveDisplay.AddRemoveStaff;
+import bookstore.User.Staff.AddRemoveDisplay.AddRemoveCashier;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveManager;
 import bookstore.User.Staff.User;
-import bookstore.User.Staff.StaffList;
+import bookstore.User.Staff.CashierList;
 import bookstore.User.Staff.ManagerList;
 import bookstore.book.bookstk;
 import java.util.Scanner;
 
-public class OwnerMenu extends ManagerMenu {
-    private ManagerList managerList;
+public class OwnerMenu {
+    protected bookstore.MenuRelated.Menu menu;
+    protected bookstk bookStock;
+    protected Scanner scanner;
+    protected CashierList cashierList;
+    protected ManagerList managerList;
     
-    public OwnerMenu(bookstk bookStock, Scanner scanner, StaffList staffList, ManagerList managerList) {
-        super(bookStock, scanner, staffList);
+    public OwnerMenu(bookstk bookStock, Scanner scanner, CashierList cashierList, ManagerList managerList) {
+        this.menu = new bookstore.MenuRelated.Menu();
+        this.bookStock = bookStock;
+        this.scanner = scanner;
+        this.cashierList = cashierList;
         this.managerList = managerList;
     }
 
-    @Override
     public void handleUserMenu(User user) {
         while (true) {
             menu.DisplayMenu(user);
@@ -31,37 +37,35 @@ public class OwnerMenu extends ManagerMenu {
             int menuChoice = scanner.nextInt();
             scanner.nextLine();
 
-            AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner);
-
             switch(menuChoice) {
                 case 0:
+                    System.out.println("Logging out...\n");
                     return;
                 case 1:
-                    addRemove.addBookFromInput();
+                    // Display book stock
+                    AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner);
+                    addRemove.displayTotalBookStock();
                     break;
                 case 2:
-                    addRemove.removeBookFromInput();
+                    // Add Cashier
+                    AddRemoveCashier addCashier = new AddRemoveCashier(cashierList);
+                    System.out.print("Enter cashier name: ");
+                    String cashierName = scanner.nextLine();
+                    System.out.print("Enter cashier email: ");
+                    String cashierEmail = scanner.nextLine();
+                    System.out.print("Enter cashier password: ");
+                    String cashierPassword = scanner.nextLine();
+                    addCashier.addCashier(cashierName, cashierEmail, cashierPassword);
                     break;
                 case 3:
-                    addRemove.displayBookStock();
+                    // Remove Cashier
+                    AddRemoveCashier removeCashier = new AddRemoveCashier(cashierList);
+                    System.out.print("Enter cashier name to remove: ");
+                    String cashierNameRemove = scanner.nextLine();
+                    removeCashier.removeCashier(cashierNameRemove);
                     break;
                 case 4:
-                    AddRemoveStaff addStaff = new AddRemoveStaff(super.staffList);
-                    System.out.print("Enter staff name: ");
-                    String staffName = scanner.nextLine();
-                    System.out.print("Enter staff email: ");
-                    String staffEmail = scanner.nextLine();
-                    System.out.print("Enter staff password: ");
-                    String staffPassword = scanner.nextLine();
-                    addStaff.addStaff(staffName, staffEmail, staffPassword);
-                    break;
-                case 5:
-                    AddRemoveStaff removeStaff = new AddRemoveStaff(super.staffList);
-                    System.out.print("Enter staff name to remove: ");
-                    String nameToRemove = scanner.nextLine();
-                    removeStaff.removeStaff(nameToRemove);
-                    break;
-                case 6:
+                    // Add Manager
                     AddRemoveManager addManager = new AddRemoveManager(managerList);
                     System.out.print("Enter manager name: ");
                     String managerName = scanner.nextLine();
@@ -71,17 +75,20 @@ public class OwnerMenu extends ManagerMenu {
                     String managerPassword = scanner.nextLine();
                     addManager.addManager(managerName, managerEmail, managerPassword);
                     break;
-                case 7:
+                case 5:
+                    // Remove Manager
                     AddRemoveManager removeManager = new AddRemoveManager(managerList);
                     System.out.print("Enter manager name to remove: ");
-                    String nameToRemoves = scanner.nextLine();
-                    removeManager.removeManager(nameToRemoves);
+                    String managerNameRemove = scanner.nextLine();
+                    removeManager.removeManager(managerNameRemove);
                     break;
-                case 8:
-                    AddRemoveStaff displayStaff = new AddRemoveStaff(super.staffList);
-                    displayStaff.displayStaff();
+                case 6:
+                    // Display Cashier
+                    AddRemoveCashier displayCashier = new AddRemoveCashier(cashierList);
+                    displayCashier.displayCashier();
                     break;
-                case 9:
+                case 7:
+                    // Display Manager
                     AddRemoveManager displayManager = new AddRemoveManager(managerList);
                     displayManager.displayManagers();
                     break;

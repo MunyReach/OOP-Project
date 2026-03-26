@@ -8,12 +8,12 @@ import bookstore.book.bookstk;
 import bookstore.User.Staff.User;
 import java.util.Scanner;
 
-public class StaffMenu {
+public class CashierMenu {
     protected Menu menu;
     protected bookstk bookStock;
     protected Scanner scanner;
 
-    public StaffMenu(bookstk bookStock, Scanner scanner) {
+    public CashierMenu(bookstk bookStock, Scanner scanner) {
         this.menu = new Menu();
         this.bookStock = bookStock;
         this.scanner = scanner;
@@ -32,16 +32,31 @@ public class StaffMenu {
             int menuChoice = scanner.nextInt();
             scanner.nextLine();
 
+            AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner);
+
             switch(menuChoice) {
                 case 0:
+                    System.out.println("Logging out...\n");
                     return;
                 case 1:
                     OrderBooks orderBooks = new OrderBooks(bookStock, scanner, user);
                     orderBooks.displayBooksForOrder();
                     break;
+                case 2:
+                    addRemove.displayBookStock();
+                    break;
+                case 3:
+                    displaySaleInfo();
+                    break;
                 default:
                     System.out.println("Invalid choice!");
             }
         }
+    }
+
+    private void displaySaleInfo() {
+        System.out.println("\n===== Sales Information =====");
+        System.out.println("Sale Report Feature Coming Soon");
+        System.out.println("===============================\n");
     }
 }
