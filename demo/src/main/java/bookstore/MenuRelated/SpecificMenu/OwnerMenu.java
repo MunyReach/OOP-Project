@@ -1,13 +1,14 @@
 package bookstore.MenuRelated.SpecificMenu;
 
+import java.util.Scanner;
+
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveBook;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveCashier;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveManager;
-import bookstore.User.Staff.User;
 import bookstore.User.Staff.CashierList;
 import bookstore.User.Staff.ManagerList;
+import bookstore.User.Staff.User;
 import bookstore.book.bookstk;
-import java.util.Scanner;
 
 public class OwnerMenu {
     protected bookstore.MenuRelated.Menu menu;
@@ -70,24 +71,17 @@ public class OwnerMenu {
                     }
 
                     if (option == 1) {
+                        System.out.println("\n"); 
                         continue;
-                    } else if (option == 2) {
+                    }else{
                         System.out.println("Logging out...\n");
                         return;
-                    } else {
-                        System.out.println("Invalid option! Returning to menu.");
                     }
 
                 case 2:
                     // Add Cashier
-                    AddRemoveCashier addCashier = new AddRemoveCashier(cashierList);
-                    System.out.print("Enter cashier name: ");
-                    String cashierName = scanner.nextLine();
-                    System.out.print("Enter cashier email: ");
-                    String cashierEmail = scanner.nextLine();
-                    System.out.print("Enter cashier password: ");
-                    String cashierPassword = scanner.nextLine();
-                    addCashier.addCashier(cashierName, cashierEmail, cashierPassword);
+                    AddRemoveCashier arc = new AddRemoveCashier(this.cashierList);
+                    arc.addCashierFromInput(scanner);
                     break;
                 case 3:
                     // Remove Cashier

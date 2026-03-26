@@ -1,22 +1,21 @@
 package bookstore;
 
+import java.util.Scanner;
+
 import bookstore.MenuRelated.Menu;
-import bookstore.MenuRelated.SpecificMenu.OwnerMenu;
-import bookstore.MenuRelated.SpecificMenu.ManagerMenu;
 import bookstore.MenuRelated.SpecificMenu.CashierMenu;
+import bookstore.MenuRelated.SpecificMenu.ManagerMenu;
+import bookstore.MenuRelated.SpecificMenu.OwnerMenu;
+import bookstore.User.Staff.CashierList;
+import bookstore.User.Staff.ManagerList;
+import bookstore.User.Staff.User;
+import bookstore.auth.CashierLoginHandler;
 import bookstore.auth.LoginHandler;
 import bookstore.auth.ManagerLoginHandler;
 import bookstore.auth.OwnerLoginHandler;
-import bookstore.auth.CashierLoginHandler;
 import bookstore.defaults.DefaultBookData;
 import bookstore.defaults.DefaultManagerData;
 import bookstore.defaults.DefaultStaffData;
-import bookstore.User.Staff.User;
-import bookstore.User.Staff.CashierList;
-import bookstore.User.Staff.ManagerList;
-
-
-import java.util.Scanner;
 
 
 public class App {
@@ -87,4 +86,3 @@ public class App {
         }
     }
 }
-
