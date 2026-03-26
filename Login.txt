@@ -1,0 +1,25 @@
+When Running You can run as 
+Owner by 
+Name: Owner
+Email: owner@store.com
+password: owner123
+
+manager
+Name Manager
+Email: manager@store.com
+password: manager123
+
+A Staff
+Name: A
+Email: A@store.com
+password: A123
+B Staff
+
+Name: B
+Email: B@store.com
+password: B123
+C Staff
+
+Name: C
+Email: C@store.com
+password: C123
