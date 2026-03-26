@@ -34,7 +34,7 @@ public class Menu {
     }
 
     public void DisplayBeforeLogin() {
-        System.out.println("=================MENU==================");
+        System.out.println("================= HOME PAGE ==================");
         System.out.println("1.Login as Owner");
         System.out.println("2.Login as Manager");
         System.out.println("3.Login as Cashier");
