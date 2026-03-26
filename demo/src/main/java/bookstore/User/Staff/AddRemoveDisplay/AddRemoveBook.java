@@ -79,15 +79,16 @@ public class AddRemoveBook {
     }
 
     public void displayTotalBookStock() {
-        System.out.println("\n===== Total Book Stock Summary =====");
         int totalQuantity = 0;
         
         for (Book book : bookStock.getBooks()) {
             totalQuantity += book.getQuantity();
         }
+
+
+        bookStock.displayAllBooks();
+        System.out.println("Total books in stock: " + totalQuantity);
         
-        System.out.println("Total books in stock (by quantity): " + totalQuantity);
-        System.out.println("Number of different book titles: " + bookStock.getTotalBooks());
     }
     
 }

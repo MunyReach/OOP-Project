@@ -45,7 +45,39 @@ public class OwnerMenu {
                     // Display book stock
                     AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner);
                     addRemove.displayTotalBookStock();
-                    break;
+
+                    // Option to continue to menu or logout
+                    System.out.println("\nChoose an option:");
+                    System.out.println("1. Continue to menu");
+                    System.out.println("2. Logout");
+
+                    System.out.print("Enter your choice: ");
+
+                    int option = scanner.nextInt();
+                    scanner.nextLine();
+
+
+                    while(option != 1 && option != 2) {
+                        System.out.println("Invalid option! Please enter 1 or 2.");
+                        System.out.print("Choose an option: ");
+                        if (!scanner.hasNextInt()) {
+                            System.out.println("Invalid input! Please enter a number.");
+                            scanner.nextLine();
+                            continue;
+                        }
+                        option = scanner.nextInt();
+                        scanner.nextLine();
+                    }
+
+                    if (option == 1) {
+                        continue;
+                    } else if (option == 2) {
+                        System.out.println("Logging out...\n");
+                        return;
+                    } else {
+                        System.out.println("Invalid option! Returning to menu.");
+                    }
+
                 case 2:
                     // Add Cashier
                     AddRemoveCashier addCashier = new AddRemoveCashier(cashierList);
