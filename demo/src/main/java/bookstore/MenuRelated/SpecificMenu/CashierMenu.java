@@ -32,7 +32,8 @@ public class CashierMenu {
             int menuChoice = scanner.nextInt();
             scanner.nextLine();
 
-            AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner);
+            // Note: Cashier uses null for managerList as they don't remove books
+            AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner, null);
 
             switch(menuChoice) {
                 case 0:

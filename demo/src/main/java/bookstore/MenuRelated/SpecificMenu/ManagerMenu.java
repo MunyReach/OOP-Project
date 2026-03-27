@@ -13,12 +13,14 @@ public class ManagerMenu {
     protected bookstk bookStock;
     protected Scanner scanner;
     protected CashierList cashierList;
+    protected bookstore.User.Staff.ManagerList managerList;
     
-    public ManagerMenu(bookstk bookStock, Scanner scanner, CashierList cashierList) {
+    public ManagerMenu(bookstk bookStock, Scanner scanner, CashierList cashierList, bookstore.User.Staff.ManagerList managerList) {
         this.menu = new bookstore.MenuRelated.Menu();
         this.bookStock = bookStock;
         this.scanner = scanner;
         this.cashierList = cashierList;
+        this.managerList = managerList;
     }
 
     public void handleUserMenu(User user) {
@@ -34,7 +36,7 @@ public class ManagerMenu {
             int menuChoice = scanner.nextInt();
             scanner.nextLine();
 
-            AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner);
+            AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner, managerList);
 
             switch(menuChoice) {
                 case 0:

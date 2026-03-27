@@ -76,7 +76,7 @@ public class App {
                     OwnerMenu ownerMenu = new OwnerMenu(bookStock, scanner, cashierList, managerList);
                     ownerMenu.handleUserMenu(user);
                 } else if (user.getRole().equals("Manager")) {
-                    ManagerMenu managerMenu = new ManagerMenu(bookStock, scanner, cashierList);
+                    ManagerMenu managerMenu = new ManagerMenu(bookStock, scanner, cashierList, managerList);
                     managerMenu.handleUserMenu(user);
                 } else if (user.getRole().equals("Cashier")) {
                     CashierMenu cashierMenu = new CashierMenu(bookStock, scanner);

@@ -44,7 +44,7 @@ public class OwnerMenu {
                     return;
                 case 1:
                     // Display book stock
-                    AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner);
+                    AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner, managerList);
                     addRemove.displayTotalBookStock();
 
                     // Option to continue to menu or logout
