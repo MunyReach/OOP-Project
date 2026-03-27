@@ -58,11 +58,17 @@ public class OwnerMenu {
                     addCashier.addCashier(cashierName, cashierEmail, cashierPassword);
                     break;
                 case 3:
-                    // Remove Cashier
+                    // Remove Cashier by ID
                     AddRemoveCashier removeCashier = new AddRemoveCashier(cashierList);
-                    System.out.print("Enter cashier name to remove: ");
-                    String cashierNameRemove = scanner.nextLine();
-                    removeCashier.removeCashier(cashierNameRemove);
+                    System.out.print("Enter cashier ID to remove (numeric): ");
+                    if (!scanner.hasNextInt()) {
+                        System.out.println("Invalid ID. Please enter a number.");
+                        scanner.nextLine();
+                        break;
+                    }
+                    int cashierIdRemove = scanner.nextInt();
+                    scanner.nextLine();
+                    removeCashier.removeCashierById(cashierIdRemove);
                     break;
                 case 4:
                     // Add Manager

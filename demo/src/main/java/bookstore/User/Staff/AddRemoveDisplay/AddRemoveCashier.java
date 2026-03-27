@@ -21,6 +21,24 @@ public class AddRemoveCashier {
         
     }
 
+    public void removeCashierById(int id) {
+        User cashierToRemove = null;
+        for (User cashier : cashierList.getCashierMembers()) {
+            if (cashier.getId() == id) {
+                cashierToRemove = cashier;
+                break;
+            }
+        }
+
+        if (cashierToRemove != null) {
+            cashierList.removeCashierMember(cashierToRemove);
+            System.out.println("Removed cashier: " + cashierToRemove.getName());
+        } else {
+            System.out.println("Cashier not found with ID: " + id);
+        }
+    }
+
+    // Keep the name-based method for compatibility, but prefer ID based removal.
     public void removeCashier(String name) {
         User cashierToRemove = null;
         for (User cashier : cashierList.getCashierMembers()) {
@@ -44,7 +62,7 @@ public class AddRemoveCashier {
         } else {
             System.out.println("\n=== Cashier List ===");
             for (User cashier : cashierList.getCashierMembers()) {
-                System.out.println("- " + cashier.getName() + " (" + cashier.getEmail() + ")");
+                System.out.println("- ID: " + cashier.getFormattedId() + " | " + cashier.getName() + " (" + cashier.getEmail() + ")");
             }
             System.out.println("==================\n");
         }
