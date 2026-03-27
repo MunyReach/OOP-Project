@@ -1,9 +1,10 @@
 package bookstore.auth;
 
+import java.util.Scanner;
+
 import bookstore.User.Staff.CashierList;
 import bookstore.User.Staff.User;
 import bookstore.defaults.DefaultStaffData;
-import java.util.Scanner;
 
 public class CashierLoginHandler implements LoginHandler {
     private final CashierList cashierList;
@@ -33,6 +34,5 @@ public class CashierLoginHandler implements LoginHandler {
         System.out.println("Invalid email or password!\n");
         return null;
     }
-
 
 }

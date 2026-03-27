@@ -1,13 +1,14 @@
 package bookstore.MenuRelated.SpecificMenu;
 
+import java.util.Scanner;
+
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveBook;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveCashier;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveManager;
-import bookstore.User.Staff.User;
 import bookstore.User.Staff.CashierList;
 import bookstore.User.Staff.ManagerList;
+import bookstore.User.Staff.User;
 import bookstore.book.bookstk;
-import java.util.Scanner;
 
 public class OwnerMenu {
     protected bookstore.MenuRelated.Menu menu;
@@ -45,17 +46,42 @@ public class OwnerMenu {
                     // Display book stock
                     AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner);
                     addRemove.displayTotalBookStock();
-                    break;
+
+                    // Option to continue to menu or logout
+                    System.out.println("\nChoose an option:");
+                    System.out.println("1. Continue to menu");
+                    System.out.println("2. Logout");
+
+                    System.out.print("Enter your choice: ");
+
+                    int option = scanner.nextInt();
+                    scanner.nextLine();
+
+
+                    while(option != 1 && option != 2) {
+                        System.out.println("Invalid option! Please enter 1 or 2.");
+                        System.out.print("Choose an option: ");
+                        if (!scanner.hasNextInt()) {
+                            System.out.println("Invalid input! Please enter a number.");
+                            scanner.nextLine();
+                            continue;
+                        }
+                        option = scanner.nextInt();
+                        scanner.nextLine();
+                    }
+
+                    if (option == 1) {
+                        System.out.println("\n"); 
+                        continue;
+                    }else{
+                        System.out.println("Logging out...\n");
+                        return;
+                    }
+
                 case 2:
                     // Add Cashier
-                    AddRemoveCashier addCashier = new AddRemoveCashier(cashierList);
-                    System.out.print("Enter cashier name: ");
-                    String cashierName = scanner.nextLine();
-                    System.out.print("Enter cashier email: ");
-                    String cashierEmail = scanner.nextLine();
-                    System.out.print("Enter cashier password: ");
-                    String cashierPassword = scanner.nextLine();
-                    addCashier.addCashier(cashierName, cashierEmail, cashierPassword);
+                    AddRemoveCashier arc = new AddRemoveCashier(this.cashierList);
+                    arc.addCashierFromInput(scanner);
                     break;
                 case 3:
                     // Remove Cashier by ID
