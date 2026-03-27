@@ -99,13 +99,46 @@ public class OwnerMenu {
                 case 4:
                     // Add Manager
                     AddRemoveManager addManager = new AddRemoveManager(managerList);
-                    System.out.print("Enter manager name: ");
-                    String managerName = scanner.nextLine();
-                    System.out.print("Enter manager email: ");
-                    String managerEmail = scanner.nextLine();
-                    System.out.print("Enter manager password: ");
-                    String managerPassword = scanner.nextLine();
-                    addManager.addManager(managerName, managerEmail, managerPassword);
+                    while (true) {
+                        System.out.println("Name format: First letter capital, rest lowercase (e.g., Alice)");
+                        System.out.print("Enter manager name: ");
+                        String managerName = scanner.nextLine();
+
+                        if (!isValidName(managerName)) {
+                            System.out.println("Invalid! Please follow the correct name format.");
+                            if (!askRetryOrReturn(scanner)) {
+                                break;
+                            }
+                            continue;
+                        }
+
+                        System.out.println("Email format: username@store.com (e.g., alice@store.com)");
+                        System.out.print("Enter manager email: ");
+                        String managerEmail = scanner.nextLine();
+
+                        if (!isValidEmail(managerEmail)) {
+                            System.out.println("Invalid email format! Please use username@store.com.");
+                            if (!askRetryOrReturn(scanner)) {
+                                break;
+                            }
+                            continue;
+                        }
+
+                        System.out.print("Enter manager password: ");
+                        String managerPassword = scanner.nextLine();
+
+                        if (!isValidPassword(managerPassword)) {
+                            System.out.println("Invalid password! Password must contain both letters and numbers.");
+                            if (!askRetryOrReturn(scanner)) {
+                                break;
+                            }
+                            continue;
+                        }
+
+                        addManager.addManager(managerName, managerEmail, managerPassword);
+                        System.out.println("Manager '" + managerName + "' added successfully.");
+                        break;
+                    }
                     break;
                 case 5:
                     // Remove Manager
@@ -126,6 +159,37 @@ public class OwnerMenu {
                     break;
                 default:
                     System.out.println("Invalid choice!");
+            }
+        }
+    }
+
+    private boolean isValidName(String name) {
+        return name.length() > 0 && name.length() < 52 && Character.isUpperCase(name.charAt(0))
+                && name.substring(1).equals(name.substring(1).toLowerCase());
+    }
+
+    private boolean isValidEmail(String email) {
+        return email.matches("^[A-Za-z0-9+_.-]+@store\\.com$");
+    }
+
+    private boolean isValidPassword(String password) {
+        return password.matches(".*[a-zA-Z].*") && password.matches(".*[0-9].*");
+    }
+
+    private boolean askRetryOrReturn(Scanner scanner) {
+        while (true) {
+            System.out.println("Choose an option:");
+            System.out.println("1. Try again");
+            System.out.println("2. Return to owner menu");
+            System.out.print("Enter your choice: ");
+
+            String choice = scanner.nextLine().trim();
+            if (choice.equals("1")) {
+                return true;
+            } else if (choice.equals("2")) {
+                return false;
+            } else {
+                System.out.println("Invalid choice! Please enter 1 or 2.");
             }
         }
     }
