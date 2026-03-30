@@ -26,82 +26,104 @@ public class AddRemoveBook {
 
     public void addBookFromInput() {
         System.out.println("\n--- Add New Book ---");
-        String title;
-        while (true) {
+        String title = "";
+        int attempts = 5;
+        while (attempts > 0) {
             System.out.print("Enter book title: ");
             String input = scanner.nextLine().trim();
-            if (input.isEmpty()) {
-                System.out.println("Title cannot be empty. Please try again.");
+            if (input.isEmpty() || input.length() < 3) {
+                System.out.println("Title cannot be empty and must be at least 3 letters. Attempts left: " + (attempts - 1));
+                attempts--;
                 continue;
             }
             title = toTitleCase(input);
             break;
         }
+        if (attempts == 0) {
+            System.out.println("Too many failed attempts. Returning to menu.");
+            return;
+        }
 
-        String author;
-        while (true) {
+        String author = "";
+        attempts = 5;
+        while (attempts > 0) {
             System.out.print("Enter author name: ");
             String input = scanner.nextLine().trim();
-            if (input.isEmpty()) {
-                System.out.println("Author name cannot be empty. Please try again.");
+            if (input.isEmpty() || input.length() < 3) {
+                System.out.println("Author name cannot be empty and must be at least 3 letters. Attempts left: " + (attempts - 1));
+                attempts--;
                 continue;
             }
             author = toTitleCase(input);
             break;
         }
+        if (attempts == 0) {
+            System.out.println("Too many failed attempts. Returning to menu.");
+            return;
+        }
 
-        String isbn;
-        while (true) {
-            System.out.print("Enter ISBN: ");
-            String input = scanner.nextLine().trim().toUpperCase();
-            if (input.isEmpty()) {
-                System.out.println("ISBN cannot be empty. Please try again.");
+        String isbn = "";
+        attempts = 5;
+        while (attempts > 0) {
+            System.out.print("Enter ISBN (5 digits): ");
+            String input = scanner.nextLine().trim();
+            if (input.isEmpty() || !input.matches("\\d{5}")) {
+                System.out.println("ISBN must be exactly 5 digits. Attempts left: " + (attempts - 1));
+                attempts--;
                 continue;
             }
-            boolean hasLetter = input.matches(".*[A-Z].*");
-            boolean hasDigit = input.matches(".*\\d.*");
-            boolean validCharacters = input.matches("[A-Z0-9-]+");
-
-            if (!validCharacters || !hasLetter || !hasDigit) {
-                System.out.println("ISBN must contain both letters and numbers (letters will be uppercase).");
-                System.out.println("Allowed characters: A-Z, 0-9, and '-'. Please try again.");
-                continue;
-            }
-
             isbn = input;
             break;
         }
+        if (attempts == 0) {
+            System.out.println("Too many failed attempts. Returning to menu.");
+            return;
+        }
 
-        double price;
-        while (true) {
+        double price = 0.0;
+        attempts = 5;
+        while (attempts > 0) {
             System.out.print("Enter price: ");
             String input = scanner.nextLine().trim();
             try {
                 price = Double.parseDouble(input);
                 if (price <= 0) {
-                    System.out.println("Price must be above 0. Please try again.");
+                    System.out.println("Price must be above 0. Attempts left: " + (attempts - 1));
+                    attempts--;
                     continue;
                 }
                 break;
             } catch (NumberFormatException e) {
-                System.out.println("Invalid price format. Please enter a valid number.");
+                System.out.println("Invalid price format. Please enter a valid number. Attempts left: " + (attempts - 1));
+                attempts--;
             }
         }
+        if (attempts == 0) {
+            System.out.println("Too many failed attempts. Returning to menu.");
+            return;
+        }
 
-        String category;
-        while (true) {
+        String category = "";
+        attempts = 5;
+        while (attempts > 0) {
             System.out.print("Enter category: ");
             String input = scanner.nextLine().trim();
-            if (input.isEmpty()) {
-                System.out.println("Category cannot be empty. Please try again.");
+            if (input.isEmpty() || input.length() < 3) {
+                System.out.println("Category cannot be empty and must be at least 3 letters. Attempts left: " + (attempts - 1));
+                attempts--;
                 continue;
             }
             if (!input.matches("[A-Za-z ]+")) {
-                System.out.println("Category cannot contain numbers or symbols. Please use letters only.");
+                System.out.println("Category cannot contain numbers or symbols. Please use letters only. Attempts left: " + (attempts - 1));
+                attempts--;
                 continue;
             }
             category = toTitleCase(input);
             break;
+        }
+        if (attempts == 0) {
+            System.out.println("Too many failed attempts. Returning to menu.");
+            return;
         }
 
         Book newBook = new Book(title, author, isbn, price, category);

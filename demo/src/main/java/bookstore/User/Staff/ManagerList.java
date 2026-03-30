@@ -32,7 +32,7 @@ public class ManagerList {
 
     private void updateManagerIds() {
         for (int i = 0; i < managers.size(); i++) {
-            managers.get(i).setId(i + 1);
+            managers.get(i).setId(1001 + i);
         }
     }
 }

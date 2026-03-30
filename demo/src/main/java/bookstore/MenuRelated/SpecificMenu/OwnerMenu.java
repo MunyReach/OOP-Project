@@ -94,18 +94,24 @@ public class OwnerMenu {
                     }
                     int cashierIdRemove = scanner.nextInt();
                     scanner.nextLine();
+                    System.out.print("Enter owner password to confirm removal: ");
+                    String passwordCashier = scanner.nextLine();
+                    if (!user.isPasswordCorrect(passwordCashier)) {
+                        System.out.println("Incorrect password. Removal cancelled.");
+                        break;
+                    }
                     removeCashier.removeCashierById(cashierIdRemove);
                     break;
                 case 4:
                     // Add Manager
                     AddRemoveManager addManager = new AddRemoveManager(managerList);
                     while (true) {
-                        System.out.println("Name format: First letter capital, rest lowercase (e.g., Alice)");
+                        System.out.println("Name format: First letter capital, rest lowercase, at least 3 letters (e.g., Alice)");
                         System.out.print("Enter manager name: ");
                         String managerName = scanner.nextLine();
 
                         if (!isValidName(managerName)) {
-                            System.out.println("Invalid! Please follow the correct name format.");
+                            System.out.println("Invalid! Name must be at least 3 letters and follow the correct format.");
                             if (!askRetryOrReturn(scanner)) {
                                 break;
                             }
@@ -143,9 +149,21 @@ public class OwnerMenu {
                 case 5:
                     // Remove Manager
                     AddRemoveManager removeManager = new AddRemoveManager(managerList);
-                    System.out.print("Enter manager name to remove: ");
-                    String managerNameRemove = scanner.nextLine();
-                    removeManager.removeManager(managerNameRemove);
+                    System.out.print("Enter manager ID to remove (numeric): ");
+                    if (!scanner.hasNextInt()) {
+                        System.out.println("Invalid ID. Please enter a number.");
+                        scanner.nextLine();
+                        break;
+                    }
+                    int managerIdRemove = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Enter owner password to confirm removal: ");
+                    String passwordManager = scanner.nextLine();
+                    if (!user.isPasswordCorrect(passwordManager)) {
+                        System.out.println("Incorrect password. Removal cancelled.");
+                        break;
+                    }
+                    removeManager.removeManagerById(managerIdRemove);
                     break;
                 case 6:
                     // Display Cashier
@@ -164,7 +182,7 @@ public class OwnerMenu {
     }
 
     private boolean isValidName(String name) {
-        return name.length() > 0 && name.length() < 52 && Character.isUpperCase(name.charAt(0))
+        return name.length() >= 3 && name.length() < 52 && Character.isUpperCase(name.charAt(0))
                 && name.substring(1).equals(name.substring(1).toLowerCase());
     }
 

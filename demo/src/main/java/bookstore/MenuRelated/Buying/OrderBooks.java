@@ -2,8 +2,6 @@ package bookstore.MenuRelated.Buying;
 
 import bookstore.Book;
 import bookstore.book.bookstk;
-import bookstore.Payment.CreditCardPayment;
-import bookstore.Payment.PaymentMethod;
 import bookstore.Receipt.Receipt;
 import bookstore.User.Staff.User;
 
@@ -53,37 +51,69 @@ public class OrderBooks {
         List<Integer> orderedQuantities = new ArrayList<>();
 
         while (true) {
-            System.out.println();
-            System.out.println("Enter 001 to " + String.format("%03d", bookStock.getBooks().size()) + " to order that book");
-            System.out.println("Enter 000 to cancel and return");
-            System.out.print("Enter your ID: ");
-            String bookIdInput = scanner.nextLine().trim();
+            int idAttempts = 5;
+            Book selected = null;
 
-            if ("000".equals(bookIdInput)) {
-                System.out.println("Order canceled.");
-                return;
+            while (idAttempts > 0) {
+                System.out.println();
+                System.out.println("Enter book ID to order");
+                System.out.println("Enter 000 to cancel and return to MENU");
+                System.out.print("Enter Book ID to order: ");
+                String bookIdInput = scanner.nextLine().trim();
+
+                if ("000".equals(bookIdInput)) {
+                    System.out.println("Order canceled.");
+                    return;
+                }
+
+                if (bookIdInput.length() != 3 || !isAllDigits(bookIdInput)) {
+                    idAttempts--;
+                    System.out.println("Invalid ID. Attempts left: " + idAttempts);
+                    if (idAttempts == 0) {
+                        System.out.println("Too many invalid ID attempts. Returning to MENU.");
+                        return;
+                    }
+                    continue;
+                }
+
+                int bookId = Integer.parseInt(bookIdInput);
+                if (bookId < 1 || bookId > bookStock.getBooks().size()) {
+                    idAttempts--;
+                    System.out.println("Invalid ID. Attempts left: " + idAttempts);
+                    if (idAttempts == 0) {
+                        System.out.println("Too many invalid ID attempts. Returning to MENU.");
+                        return;
+                    }
+                    continue;
+                }
+
+                selected = bookStock.findBookById(bookId);
+                if (selected == null) {
+                    idAttempts--;
+                    System.out.println("Invalid ID. Attempts left: " + idAttempts);
+                    if (idAttempts == 0) {
+                        System.out.println("Too many invalid ID attempts. Returning to MENU.");
+                        return;
+                    }
+                    continue;
+                }
+
+                break;
             }
 
-            if (bookIdInput.length() != 3 || !isAllDigits(bookIdInput)) {
-                System.out.println("Invalid ID.");
-                continue;
-            }
-
-            int bookId = Integer.parseInt(bookIdInput);
-            if (bookId <= 0 || bookId > 999) {
-                System.out.println("Invalid ID.");
-                continue;
-            }
-
-            Book selected = bookStock.findBookById(bookId);
-            if (selected == null) {
-                System.out.println("Invalid ID.");
-                continue;
-            }
-
-            int quantity = readValidQuantity();
-            if (quantity == -1) {
-                continue;
+            int quantityAttempts = 5;
+            int quantity = -1;
+            while (quantityAttempts > 0) {
+                quantity = readValidQuantity();
+                if (quantity != -1) {
+                    break;
+                }
+                quantityAttempts--;
+                System.out.println("Invalid amount. Attempts left: " + quantityAttempts);
+                if (quantityAttempts == 0) {
+                    System.out.println("Too many invalid quantity attempts. Returning to MENU.");
+                    return;
+                }
             }
 
             int existingIndex = orderedBooks.indexOf(selected);
@@ -91,12 +121,12 @@ public class OrderBooks {
             int newTotalForBook = alreadyOrdered + quantity;
 
             if (newTotalForBook > 5) {
-                System.out.println("Invalid amount.");
+                System.out.println("Invalid amount. Maximum per book is 5.");
                 continue;
             }
 
             if (newTotalForBook > selected.getQuantity()) {
-                System.out.println("Invalid amount.");
+                System.out.println("Invalid amount. Not enough stock.");
                 continue;
             }
 
@@ -117,11 +147,12 @@ public class OrderBooks {
             totalAmount += orderedBooks.get(i).getPrice() * orderedQuantities.get(i);
         }
 
-        PaymentMethod payment = new CreditCardPayment(scanner);
-        boolean success = payment.pay(totalAmount);
+        System.out.println("Total order amount: $" + totalAmount);
 
-        if (!success) {
-            System.out.println("Payment failed.");
+        System.out.print("Enter cashier password to confirm payment: ");
+        String cashierPassword = scanner.nextLine().trim();
+        if (!currentUser.isPasswordCorrect(cashierPassword)) {
+            System.out.println("Incorrect password. Payment cancelled.");
             return;
         }
 
@@ -132,7 +163,6 @@ public class OrderBooks {
             Receipt.generateReciept(book.getTitle(), book.getAuthor(), book.getPrice(), quantity);
         }
 
-        System.out.println("Total order amount: $" + totalAmount);
         System.out.println("Thank you for shopping with us!");
     }
 

@@ -72,12 +72,12 @@ public class AddRemoveCashier {
         // scanner.nextLine(); // Uncomment this if the name prompt skips after you press '2'
 
         while (true) {
-            System.out.println("Name format: First letter capital, rest lowercase (e.g., Alice)");
+            System.out.println("Name format: First letter capital, rest lowercase, at least 3 letters (e.g., Alice)");
             System.out.print("Enter Cashier Name: ");
             String name = scanner.nextLine();
 
             if (!isValidName(name)) {
-                System.out.println("Invalid! Please follow the correct name format.");
+                System.out.println("Invalid! Name must be at least 3 letters and follow the correct format.");
                 if (!askRetryOrReturn(scanner)) {
                     return;
                 }
@@ -114,7 +114,7 @@ public class AddRemoveCashier {
     }
 
     private boolean isValidName(String name) {
-        return name.length() > 0 && name.length() < 52 && Character.isUpperCase(name.charAt(0))
+        return name.length() >= 3 && name.length() < 52 && Character.isUpperCase(name.charAt(0))
                 && name.substring(1).equals(name.substring(1).toLowerCase());
     }
 
