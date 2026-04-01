@@ -1,5 +1,8 @@
 package bookstore.Receipt;
 
+import bookstore.Book;
+import java.util.List;
+
 public class Receipt {
     private String bookTitle;
     private String bookAuthor;
@@ -7,16 +10,31 @@ public class Receipt {
     private double quantity;
     private double totalPrice;
 
-    public static void generateReciept(String bookTitle, String bookAuthor, double bookPrice, double quantity) {
-        double totalPrice = bookPrice * quantity;
-        
+    public static void generateReciept(List<Book> books, List<Integer> quantities) {
+        double subTotal = 0.0;
+
         System.out.println("----- Receipt -----");
-        System.out.println("Book Title: " + bookTitle);
-        System.out.println("Author: " + bookAuthor);
-        System.out.println("Price per Book: $" + bookPrice);
-        System.out.println("Quantity: " + quantity);
-        System.out.println("Total Price: $" + totalPrice);
+        for (int i = 0; i < books.size(); i++) {
+            Book book = books.get(i);
+            int qty = quantities.get(i);
+            double lineTotal = book.getPrice() * qty;
+            subTotal += lineTotal;
+
+            System.out.println("Book Title: " + book.getTitle());
+            System.out.println("Author: " + book.getAuthor());
+            System.out.println("Price per Book: $" + book.getPrice());
+            System.out.println("Quantity: " + qty);
+            System.out.println("Total Price per Book: $" + String.format("%.2f", lineTotal));
+            System.out.println("-------------------");
+        }
+
+        System.out.println("Order Subtotal: $" + String.format("%.2f", subTotal));
         System.out.println("-------------------");
+
+        ReceiptTxtWriter.appendOrderReceiptBlock(books, quantities);
+
+        // Requirement Generate CSV receipt for order summary
+        ReceiptCsvWriter.appendReceipt("Order Summary", "Multiple Books", subTotal, 1, subTotal);
     }
 
     //getters

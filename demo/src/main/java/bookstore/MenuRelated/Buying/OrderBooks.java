@@ -156,12 +156,9 @@ public class OrderBooks {
             return;
         }
 
-        for (int i = 0; i < orderedBooks.size(); i++) {
-            Book book = orderedBooks.get(i);
-            int quantity = orderedQuantities.get(i);
-            book.reduceQuantity(quantity);
-            Receipt.generateReciept(book.getTitle(), book.getAuthor(), book.getPrice(), quantity);
-        }
+
+
+        Receipt.generateReciept(orderedBooks, orderedQuantities);
 
         System.out.println("Thank you for shopping with us!");
     }
