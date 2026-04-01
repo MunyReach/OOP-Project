@@ -10,28 +10,47 @@ public class Receipt {
     private double quantity;
     private double totalPrice;
 
-    public static void generateReciept(List<Book> books, List<Integer> quantities) {
+    private static final double TAX_RATE = 0.07;
+    private static final java.time.format.DateTimeFormatter DATE_TIME_FORMATTER = java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    public static void generateReciept(List<Book> books, List<Integer> quantities, String paymentMethod, String customerPhone, String customerAddress, String cashierName) {
         double subTotal = 0.0;
 
-        System.out.println("----- Receipt -----");
+        System.out.println("OOP Bookstore");
+        System.out.println("Date, Time: " + java.time.LocalDateTime.now().format(DATE_TIME_FORMATTER));
+        System.out.println("Payment method : " + paymentMethod);
+        System.out.println();
+        System.out.println("-----------------------------------------------------------------------------------");
+        System.out.println("Customer Phone Number: " + customerPhone);
+        System.out.println("Address: " + customerAddress);
+        System.out.println();
+        System.out.println("-----------------------------------------------------------------------------------");
+        System.out.printf("%-25s %-8s %-20s %-15s%n", "Book Name", "Amount", "(price per unit)", "Total per book");
+
         for (int i = 0; i < books.size(); i++) {
             Book book = books.get(i);
             int qty = quantities.get(i);
             double lineTotal = book.getPrice() * qty;
             subTotal += lineTotal;
 
-            System.out.println("Book Title: " + book.getTitle());
-            System.out.println("Author: " + book.getAuthor());
-            System.out.println("Price per Book: $" + book.getPrice());
-            System.out.println("Quantity: " + qty);
-            System.out.println("Total Price per Book: $" + String.format("%.2f", lineTotal));
-            System.out.println("-------------------");
+            System.out.printf("%-25s %-8d $%-19.2f $%-15.2f%n",
+                    book.getTitle(), qty, book.getPrice(), lineTotal);
         }
 
-        System.out.println("Order Subtotal: $" + String.format("%.2f", subTotal));
-        System.out.println("-------------------");
+        double tax = subTotal * TAX_RATE;
+        double total = subTotal + tax;
 
-        ReceiptTxtWriter.appendOrderReceiptBlock(books, quantities);
+        System.out.println();
+        System.out.println("----------------------------------------------------------------------------------");
+        System.out.println("Tax (always 7%): $" + String.format("%.2f", tax));
+        System.out.println("Total : $" + String.format("%.2f", total));
+        System.out.println("-----------------------------------------------------------------------------------");
+        System.out.println("Cashier Name: " + cashierName);
+        System.out.println();
+        System.out.println("Thank you for your purchase. Please come again next time. With love, OOP Bookstore:3");
+        System.out.println("-----------------------------------------------------------------------------------");
+
+        ReceiptTxtWriter.appendOrderReceiptBlock(books, quantities, paymentMethod, customerPhone, customerAddress, cashierName);
 
         // Requirement Generate CSV receipt for order summary
         ReceiptCsvWriter.appendReceipt("Order Summary", "Multiple Books", subTotal, 1, subTotal);

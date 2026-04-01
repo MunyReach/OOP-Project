@@ -17,7 +17,7 @@ public class ReceiptTxtWriter {
     private static final double TAX_RATE = 0.07;
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    public static void appendReceiptBlock(String bookTitle, String bookAuthor, double bookPrice, double quantity) {
+    public static void appendReceiptBlock(String bookTitle, String bookAuthor, double bookPrice, double quantity, String paymentMethod, String customerPhone, String customerAddress, String cashierName) {
         double subTotal = bookPrice * quantity;
         double tax = subTotal * TAX_RATE;
         double total = subTotal + tax;
@@ -25,27 +25,27 @@ public class ReceiptTxtWriter {
         StringBuilder content = new StringBuilder();
         content.append("OOP Bookstore\n");
         content.append("Date, Time: ").append(LocalDateTime.now().format(DATE_TIME_FORMATTER)).append("\n");
-        content.append("Payment method: N/A\n\n");
+        content.append("Payment method : ").append(paymentMethod).append("\n\n");
 
-        content.append("----------------------------------------\n");
-        content.append("Customer Phone Number: N/A\n");
-        content.append("Address: Walk-in purchase\n\n");
+        content.append("-----------------------------------------------------------------------------------\n");
+        content.append("Customer Phone Number: ").append(customerPhone).append("\n");
+        content.append("Address: ").append(customerAddress).append("\n\n");
 
-        content.append("----------------------------------------\n");
-        content.append("Book Name | Amount | Price per Unit | Total per Book\n");
+        content.append("-----------------------------------------------------------------------------------\n");
+        content.append("Book Name     Amount      (price per unit)          Total  per book\n");
         content.append(bookTitle)
                 .append(" by ").append(bookAuthor)
                 .append(" | ").append(formatQuantity(quantity))
                 .append(" | $").append(formatMoney(bookPrice))
                 .append(" | $").append(formatMoney(subTotal)).append("\n\n");
 
-        content.append("----------------------------------------\n");
+        content.append("-----------------------------------------------------------------------------------\n");
         content.append("Tax (always 7%): $").append(formatMoney(tax)).append("\n");
-        content.append("Total: $").append(formatMoney(total)).append("\n");
-        content.append("----------------------------------------\n");
-        content.append("Cashier Name: N/A\n\n");
+        content.append("Total : $").append(formatMoney(total)).append("\n");
+        content.append("-----------------------------------------------------------------------------------\n");
+        content.append("Cashier Name: ").append(cashierName).append("\n\n");
         content.append("Thank you for your purchase. Please come again next time. With love, OOP Bookstore:3\n");
-        content.append("----------------------------------------\n\n");
+        content.append("-----------------------------------------------------------------------------------\n\n");
 
         Path receiptFile = resolveReceiptTxtPath();
 
@@ -61,7 +61,7 @@ public class ReceiptTxtWriter {
         }
     }
 
-    public static void appendOrderReceiptBlock(List<Book> books, List<Integer> quantities) {
+    public static void appendOrderReceiptBlock(List<Book> books, List<Integer> quantities, String paymentMethod, String customerPhone, String customerAddress, String cashierName) {
         StringBuilder lines = new StringBuilder();
         double subTotal = 0.0;
 
@@ -72,7 +72,6 @@ public class ReceiptTxtWriter {
             subTotal += lineTotal;
 
             lines.append(book.getTitle())
-                    .append(" by ").append(book.getAuthor())
                     .append(" | ").append(qty)
                     .append(" | $").append(formatMoney(book.getPrice()))
                     .append(" | $").append(formatMoney(lineTotal))
@@ -85,20 +84,20 @@ public class ReceiptTxtWriter {
         StringBuilder content = new StringBuilder();
         content.append("OOP Bookstore\n");
         content.append("Date, Time: ").append(LocalDateTime.now().format(DATE_TIME_FORMATTER)).append("\n");
-        content.append("Payment method: N/A\n\n");
-        content.append("----------------------------------------\n");
-        content.append("Customer Phone Number: N/A\n");
-        content.append("Address: Walk-in purchase\n\n");
-        content.append("----------------------------------------\n");
-        content.append("Book Name | Amount | Price per Unit | Total per Book\n");
+        content.append("Payment method : ").append(paymentMethod).append("\n\n");
+        content.append("-----------------------------------------------------------------------------------\n");
+        content.append("Customer Phone Number: ").append(customerPhone).append("\n");
+        content.append("Address: ").append(customerAddress).append("\n\n");
+        content.append("-----------------------------------------------------------------------------------\n");
+        content.append("Book Name     Amount      (price per unit)          Total  per book\n");
         content.append(lines).append("\n");
-        content.append("----------------------------------------\n");
+        content.append("-----------------------------------------------------------------------------------\n");
         content.append("Tax (always 7%): $").append(formatMoney(tax)).append("\n");
-        content.append("Total: $").append(formatMoney(total)).append("\n");
-        content.append("----------------------------------------\n");
-        content.append("Cashier Name: N/A\n\n");
+        content.append("Total : $").append(formatMoney(total)).append("\n");
+        content.append("-----------------------------------------------------------------------------------\n");
+        content.append("Cashier Name: ").append(cashierName).append("\n\n");
         content.append("Thank you for your purchase. Please come again next time. With love, OOP Bookstore:3\n");
-        content.append("----------------------------------------\n\n");
+        content.append("-----------------------------------------------------------------------------------\n\n");
 
         Path receiptFile = resolveReceiptTxtPath();
 

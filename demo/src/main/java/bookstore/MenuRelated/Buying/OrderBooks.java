@@ -149,6 +149,24 @@ public class OrderBooks {
 
         System.out.println("Total order amount: $" + totalAmount);
 
+        System.out.print("Enter payment method (Aba/cash): ");
+        String paymentMethod = scanner.nextLine().trim();
+        if (paymentMethod.isEmpty()) {
+            paymentMethod = "cash";
+        }
+
+        System.out.print("Enter customer phone number (or leave blank): ");
+        String customerPhone = scanner.nextLine().trim();
+        if (customerPhone.isEmpty()) {
+            customerPhone = "N/A";
+        }
+
+        System.out.print("Enter customer address (or leave blank for walk-in purchase): ");
+        String customerAddress = scanner.nextLine().trim();
+        if (customerAddress.isEmpty()) {
+            customerAddress = "Walk-in purchase";
+        }
+
         System.out.print("Enter cashier password to confirm payment: ");
         String cashierPassword = scanner.nextLine().trim();
         if (!currentUser.isPasswordCorrect(cashierPassword)) {
@@ -158,7 +176,7 @@ public class OrderBooks {
 
 
 
-        Receipt.generateReciept(orderedBooks, orderedQuantities);
+        Receipt.generateReciept(orderedBooks, orderedQuantities, paymentMethod, customerPhone, customerAddress, currentUser.getName());
 
         System.out.println("Thank you for shopping with us!");
     }
