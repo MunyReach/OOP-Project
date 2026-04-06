@@ -16,6 +16,23 @@ public class AddRemoveManager {
         System.out.println("Manager added: " + name);
     }
 
+    public void removeManagerById(int id) {
+        Manager managerToRemove = null;
+        for (Manager manager : managerlist.getManagers()) {
+            if (manager.getId() == id) {
+                managerToRemove = manager;
+                break;
+            }
+        }
+
+        if (managerToRemove != null) {
+            managerlist.removeManager(managerToRemove);
+        } else {
+            System.out.println("Manager not found with ID: " + id);
+        }
+    }
+
+    // Keep the name-based method for compatibility, but prefer ID based removal.
     public void removeManager(String name) {
         Manager managerToRemove = null;
         for (Manager manager : managerlist.getManagers()) {
@@ -24,7 +41,7 @@ public class AddRemoveManager {
                 break;
             }
         }
-        
+
         if (managerToRemove != null) {
             managerlist.removeManager(managerToRemove);
         } else {
@@ -38,7 +55,7 @@ public class AddRemoveManager {
         } else {
             System.out.println("\n=== Manager List ===");
             for (Manager manager : managerlist.getManagers()) {
-                System.out.println("Name: " + manager.getName() + " | Email: " + manager.getEmail());
+                     System.out.println("ID: " + manager.getFormattedId() + " | Name: " + manager.getName() + " | Email: " + manager.getEmail());
             }
             System.out.println("====================\n");
         }

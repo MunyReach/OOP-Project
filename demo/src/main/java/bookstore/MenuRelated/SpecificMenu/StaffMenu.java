@@ -32,23 +32,12 @@ public class StaffMenu {
             int menuChoice = scanner.nextInt();
             scanner.nextLine();
 
-            AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner);
-
             switch(menuChoice) {
                 case 0:
                     return;
                 case 1:
                     OrderBooks orderBooks = new OrderBooks(bookStock, scanner, user);
                     orderBooks.displayBooksForOrder();
-                    break;
-                case 2:
-                    addRemove.addBookFromInput();
-                    break;
-                case 3:
-                    addRemove.removeBookFromInput();
-                    break;
-                case 4:
-                    addRemove.displayBookStock();
                     break;
                 default:
                     System.out.println("Invalid choice!");

@@ -1,26 +1,22 @@
 package bookstore.MenuRelated.SpecificMenu;
 
+import bookstore.MenuRelated.Menu;
+import bookstore.MenuRelated.Buying.OrderBooks;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveBook;
-import bookstore.User.Staff.User;
-import bookstore.User.Staff.CashierList;
+
 import bookstore.book.bookstk;
-
-
+import bookstore.User.Staff.User;
 import java.util.Scanner;
 
-public class ManagerMenu {
-    protected bookstore.MenuRelated.Menu menu;
+public class CashierMenu {
+    protected Menu menu;
     protected bookstk bookStock;
     protected Scanner scanner;
-    protected CashierList cashierList;
-    protected bookstore.User.Staff.ManagerList managerList;
-    
-    public ManagerMenu(bookstk bookStock, Scanner scanner, CashierList cashierList, bookstore.User.Staff.ManagerList managerList) {
-        this.menu = new bookstore.MenuRelated.Menu();
+
+    public CashierMenu(bookstk bookStock, Scanner scanner) {
+        this.menu = new Menu();
         this.bookStock = bookStock;
         this.scanner = scanner;
-        this.cashierList = cashierList;
-        this.managerList = managerList;
     }
 
     public void handleUserMenu(User user) {
@@ -36,23 +32,22 @@ public class ManagerMenu {
             int menuChoice = scanner.nextInt();
             scanner.nextLine();
 
-            AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner, managerList);
+            // Note: Cashier uses null for managerList as they don't remove books
+            AddRemoveBook addRemove = new AddRemoveBook(bookStock, scanner, null);
 
             switch(menuChoice) {
                 case 0:
                     System.out.println("Logging out...\n");
                     return;
                 case 1:
-                    addRemove.displayBookStock();
+                    OrderBooks orderBooks = new OrderBooks(bookStock, scanner, user);
+                    orderBooks.displayBooksForOrder();
                     break;
                 case 2:
-                    displaySaleInfo();
+                    addRemove.displayBookStock();
                     break;
                 case 3:
-                    addRemove.addBookFromInput();
-                    break;
-                case 4:
-                    addRemove.removeBookFromInput();
+                    displaySaleInfo();
                     break;
                 default:
                     System.out.println("Invalid choice!");
@@ -60,7 +55,7 @@ public class ManagerMenu {
         }
     }
 
-    protected void displaySaleInfo() {
+    private void displaySaleInfo() {
         System.out.println("\n===== Sales Information =====");
         System.out.println("Sale Report Feature Coming Soon");
         System.out.println("===============================\n");

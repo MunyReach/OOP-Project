@@ -73,7 +73,7 @@ public class bookstk {
         for (int i = 0; i < books.size(); i++) {
             books.get(i).displayInfo();
         }
-        System.out.println("Total books: " + books.size());
+        System.out.println("\nTotal titles: " + books.size());
     }
 
     // Find book by ID
