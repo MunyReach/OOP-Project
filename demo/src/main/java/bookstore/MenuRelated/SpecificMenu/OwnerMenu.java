@@ -2,6 +2,7 @@ package bookstore.MenuRelated.SpecificMenu;
 
 import java.util.Scanner;
 
+import bookstore.SalesTracker;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveBook;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveCashier;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveManager;
@@ -16,6 +17,7 @@ public class OwnerMenu {
     protected Scanner scanner;
     protected CashierList cashierList;
     protected ManagerList managerList;
+    protected User user;
     
     public OwnerMenu(bookstk bookStock, Scanner scanner, CashierList cashierList, ManagerList managerList) {
         this.menu = new bookstore.MenuRelated.Menu();
@@ -26,6 +28,7 @@ public class OwnerMenu {
     }
 
     public void handleUserMenu(User user) {
+        this.user = user;
         while (true) {
             menu.DisplayMenu(user);
 
@@ -79,11 +82,79 @@ public class OwnerMenu {
                     }
 
                 case 2:
+                    // Staff Menu
+                    handleStaffMenu();
+                    break;
+                case 3:
+                    // Display Sale
+                    displaySaleInfo();
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        }
+    }
+
+    private boolean isValidName(String name) {
+        return name.length() >= 3 && name.length() < 52 && Character.isUpperCase(name.charAt(0))
+                && name.substring(1).equals(name.substring(1).toLowerCase());
+    }
+
+    private boolean isValidEmail(String email) {
+        return email.matches("^[A-Za-z0-9+_.-]+@store\\.com$");
+    }
+
+    private boolean isValidPassword(String password) {
+        return password.matches(".*[a-zA-Z].*") && password.matches(".*[0-9].*");
+    }
+
+    private boolean askRetryOrReturn(Scanner scanner) {
+        while (true) {
+            System.out.println("Choose an option:");
+            System.out.println("1. Try again");
+            System.out.println("2. Return to owner menu");
+            System.out.print("Enter your choice: ");
+
+            String choice = scanner.nextLine().trim();
+            if (choice.equals("1")) {
+                return true;
+            } else if (choice.equals("2")) {
+                return false;
+            } else {
+                System.out.println("Invalid choice! Please enter 1 or 2.");
+            }
+        }
+    }
+
+    private void handleStaffMenu() {
+        while (true) {
+            System.out.println("=================STAFF MENU==================");
+            System.out.println("1. Add cashier");
+            System.out.println("2. Remove cashier");
+            System.out.println("3. Add Manager");
+            System.out.println("4. Remove Manager");
+            System.out.println("5. Display cashier");
+            System.out.println("6. Display Manager");
+            System.out.println("0. Back to main menu");
+            System.out.print("Enter your choice: ");
+            
+            if (!scanner.hasNextInt()) {
+                System.out.println("Invalid choice! Please enter a number.");
+                scanner.nextLine();
+                continue;
+            }
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch(choice) {
+                case 0:
+                    return;
+                case 1:
                     // Add Cashier
                     AddRemoveCashier arc = new AddRemoveCashier(this.cashierList);
                     arc.addCashierFromInput(scanner);
                     break;
-                case 3:
+                case 2:
                     // Remove Cashier by ID
                     AddRemoveCashier removeCashier = new AddRemoveCashier(cashierList);
                     System.out.print("Enter cashier ID to remove (numeric): ");
@@ -102,7 +173,7 @@ public class OwnerMenu {
                     }
                     removeCashier.removeCashierById(cashierIdRemove);
                     break;
-                case 4:
+                case 3:
                     // Add Manager
                     AddRemoveManager addManager = new AddRemoveManager(managerList);
                     while (true) {
@@ -146,7 +217,7 @@ public class OwnerMenu {
                         break;
                     }
                     break;
-                case 5:
+                case 4:
                     // Remove Manager
                     AddRemoveManager removeManager = new AddRemoveManager(managerList);
                     System.out.print("Enter manager ID to remove (numeric): ");
@@ -165,12 +236,12 @@ public class OwnerMenu {
                     }
                     removeManager.removeManagerById(managerIdRemove);
                     break;
-                case 6:
+                case 5:
                     // Display Cashier
                     AddRemoveCashier displayCashier = new AddRemoveCashier(cashierList);
                     displayCashier.displayCashier();
                     break;
-                case 7:
+                case 6:
                     // Display Manager
                     AddRemoveManager displayManager = new AddRemoveManager(managerList);
                     displayManager.displayManagers();
@@ -181,34 +252,22 @@ public class OwnerMenu {
         }
     }
 
-    private boolean isValidName(String name) {
-        return name.length() >= 3 && name.length() < 52 && Character.isUpperCase(name.charAt(0))
-                && name.substring(1).equals(name.substring(1).toLowerCase());
+    private void displaySaleInfo() {
+        // For owner, display today, this week, this month
+        System.out.println("\n===== Today's Sales =====");
+        displaySalesForPeriod("today");
+        System.out.println("\n===== This Week's Sales =====");
+        displaySalesForPeriod("week");
+        System.out.println("\n===== This Month's Sales =====");
+        displaySalesForPeriod("month");
     }
 
-    private boolean isValidEmail(String email) {
-        return email.matches("^[A-Za-z0-9+_.-]+@store\\.com$");
-    }
-
-    private boolean isValidPassword(String password) {
-        return password.matches(".*[a-zA-Z].*") && password.matches(".*[0-9].*");
-    }
-
-    private boolean askRetryOrReturn(Scanner scanner) {
-        while (true) {
-            System.out.println("Choose an option:");
-            System.out.println("1. Try again");
-            System.out.println("2. Return to owner menu");
-            System.out.print("Enter your choice: ");
-
-            String choice = scanner.nextLine().trim();
-            if (choice.equals("1")) {
-                return true;
-            } else if (choice.equals("2")) {
-                return false;
-            } else {
-                System.out.println("Invalid choice! Please enter 1 or 2.");
-            }
-        }
+    private void displaySalesForPeriod(String period) {
+        SalesTracker.SalesData data = SalesTracker.getSalesForPeriod(period);
+        System.out.println("Order: " + data.orderCount);
+        System.out.println("Net Value: $" + String.format("%.2f", data.netValue));
+        System.out.println("Walk in: " + data.walkInCount);
+        System.out.println("Delivery: " + data.deliveryCount);
+        System.out.println("Date of this sale overview: " + data.dateOverview);
     }
 }

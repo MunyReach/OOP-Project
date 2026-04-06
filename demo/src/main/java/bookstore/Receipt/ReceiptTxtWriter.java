@@ -114,10 +114,6 @@ public class ReceiptTxtWriter {
     }
 
     private static Path resolveReceiptTxtPath() {
-        Path srcRoot = Paths.get("src");
-        if (Files.exists(srcRoot)) {
-            return srcRoot.resolve("Report").resolve("receipt.txt");
-        }
         return Paths.get("demo", "src", "Report", "receipt.txt");
     }
 

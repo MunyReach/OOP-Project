@@ -13,7 +13,6 @@ import bookstore.auth.CashierLoginHandler;
 import bookstore.auth.LoginHandler;
 import bookstore.auth.ManagerLoginHandler;
 import bookstore.auth.OwnerLoginHandler;
-import bookstore.defaults.DefaultBookData;
 import bookstore.defaults.DefaultManagerData;
 import bookstore.defaults.DefaultStaffData;
 
@@ -30,7 +29,7 @@ public class App {
         LoginHandler ownerLoginHandler = new OwnerLoginHandler();
         LoginHandler managerLoginHandler = new ManagerLoginHandler(managerList);
         LoginHandler cashierLoginHandler = new CashierLoginHandler(cashierList);
-        bookstore.book.bookstk bookStock = new bookstore.book.bookstk(DefaultBookData.createDefaultBooks());
+        bookstore.book.bookstk bookStock = new bookstore.book.bookstk();
         
         System.out.println("====== Welcome to Bookstore ======\n");
 

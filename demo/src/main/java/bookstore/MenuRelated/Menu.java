@@ -8,12 +8,8 @@ public class Menu {
         System.out.println("=================MENU==================");
         if(user.getRole().equals("Owner")) {
             System.out.println("1. Display book stock");
-            System.out.println("2. Add cashier");
-            System.out.println("3. Remove cashier");
-            System.out.println("4. Add Manager");
-            System.out.println("5. Remove Manager");
-            System.out.println("6. Display cashier");
-            System.out.println("7. Display Manager");
+            System.out.println("2. Staff Menu");
+            System.out.println("3. Display Sale");
             System.out.println("0. Logout");
         }
 

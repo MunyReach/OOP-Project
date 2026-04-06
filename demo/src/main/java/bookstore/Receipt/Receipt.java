@@ -53,7 +53,8 @@ public class Receipt {
         ReceiptTxtWriter.appendOrderReceiptBlock(books, quantities, paymentMethod, customerPhone, customerAddress, cashierName);
 
         // Requirement Generate CSV receipt for order summary
-        ReceiptCsvWriter.appendReceipt("Order Summary", "Multiple Books", subTotal, 1, subTotal);
+        boolean isWalkIn = customerAddress.equals("Walk-in purchase");
+        ReceiptCsvWriter.appendOrderReceipt("Order Summary", "Multiple Books", subTotal, 1, subTotal, paymentMethod, isWalkIn);
     }
 
     //getters

@@ -1,5 +1,6 @@
 package bookstore.MenuRelated.SpecificMenu;
 
+import bookstore.SalesTracker;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveBook;
 import bookstore.User.Staff.User;
 import bookstore.User.Staff.CashierList;
@@ -61,8 +62,21 @@ public class ManagerMenu {
     }
 
     protected void displaySaleInfo() {
-        System.out.println("\n===== Sales Information =====");
-        System.out.println("Sale Report Feature Coming Soon");
-        System.out.println("===============================\n");
+        // For manager, display today, this week, this month
+        System.out.println("\n===== Today's Sales =====");
+        displaySalesForPeriod("today");
+        System.out.println("\n===== This Week's Sales =====");
+        displaySalesForPeriod("week");
+        System.out.println("\n===== This Month's Sales =====");
+        displaySalesForPeriod("month");
+    }
+
+    private void displaySalesForPeriod(String period) {
+        SalesTracker.SalesData data = SalesTracker.getSalesForPeriod(period);
+        System.out.println("Order: " + data.orderCount);
+        System.out.println("Net Value: $" + String.format("%.2f", data.netValue));
+        System.out.println("Walk in: " + data.walkInCount);
+        System.out.println("Delivery: " + data.deliveryCount);
+        System.out.println("Date of this sale overview: " + data.dateOverview);
     }
 }

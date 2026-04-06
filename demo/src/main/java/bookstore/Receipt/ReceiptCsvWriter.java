@@ -17,6 +17,10 @@ public class ReceiptCsvWriter {
 
     // Appends one receipt row and recalculates the running total revenue.
     public static void appendReceipt(String bookTitle, String bookAuthor, double bookPrice, double quantity, double totalPrice) {
+        appendOrderReceipt(bookTitle, bookAuthor, bookPrice, quantity, totalPrice, "", false);
+    }
+
+    public static void appendOrderReceipt(String bookTitle, String bookAuthor, double bookPrice, double quantity, double totalPrice, String paymentMethod, boolean isWalkIn) {
         Path salesCsv = resolveSalesCsvPath();
 
         try {
@@ -33,7 +37,7 @@ public class ReceiptCsvWriter {
                 if (line == null || line.trim().isEmpty()) {
                     continue;
                 }
-                if (line.startsWith("timestamp,bookTitle,bookAuthor,bookPrice,quantity,totalPrice")) {
+                if (line.startsWith("timestamp,bookTitle,bookAuthor,bookPrice,quantity,totalPrice,paymentMethod,isWalkIn")) {
                     continue;
                 }
                 if (line.startsWith("TOTAL_REVENUE,")) {
@@ -57,13 +61,15 @@ public class ReceiptCsvWriter {
                     + escapeCsv(bookAuthor) + ","
                     + formatMoney(bookPrice) + ","
                     + formatQuantity(quantity) + ","
-                    + formatMoney(totalPrice);
+                    + formatMoney(totalPrice) + ","
+                    + escapeCsv(paymentMethod) + ","
+                    + (isWalkIn ? "true" : "false");
 
             receiptRows.add(newReceiptRow);
             runningRevenue += totalPrice;
 
             List<String> outputLines = new ArrayList<>();
-            outputLines.add("timestamp,bookTitle,bookAuthor,bookPrice,quantity,totalPrice");
+            outputLines.add("timestamp,bookTitle,bookAuthor,bookPrice,quantity,totalPrice,paymentMethod,isWalkIn");
             outputLines.addAll(receiptRows);
             outputLines.add("TOTAL_REVENUE," + formatMoney(runningRevenue));
 
@@ -73,18 +79,9 @@ public class ReceiptCsvWriter {
         }
     }
 
-    // Always targets src/Report/sale.csv (or demo/src/Report/sale.csv based on current working dir).
+    // Always targets demo/src/Report/sale.csv
     private static Path resolveSalesCsvPath() {
-        Path srcRoot = Paths.get("src");
-        Path reportInSrcDir;
-
-        if (Files.exists(srcRoot)) {
-            reportInSrcDir = srcRoot.resolve("Report");
-        } else {
-            reportInSrcDir = Paths.get("demo", "src", "Report");
-        }
-
-        return reportInSrcDir.resolve("sale.csv");
+        return Paths.get("demo", "src", "Report", "sale.csv");
     }
 
     // Formats currency-like values to 2 decimal places for CSV consistency.

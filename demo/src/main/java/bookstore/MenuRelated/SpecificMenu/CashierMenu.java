@@ -2,6 +2,7 @@ package bookstore.MenuRelated.SpecificMenu;
 
 import bookstore.MenuRelated.Menu;
 import bookstore.MenuRelated.Buying.OrderBooks;
+import bookstore.SalesTracker;
 import bookstore.User.Staff.AddRemoveDisplay.AddRemoveBook;
 
 import bookstore.book.bookstk;
@@ -56,8 +57,13 @@ public class CashierMenu {
     }
 
     private void displaySaleInfo() {
-        System.out.println("\n===== Sales Information =====");
-        System.out.println("Sale Report Feature Coming Soon");
+        System.out.println("\n===== Today's Sales =====");
+        SalesTracker.SalesData data = SalesTracker.getSalesForPeriod("today");
+        System.out.println("Order: " + data.orderCount);
+        System.out.println("Net Value: $" + String.format("%.2f", data.netValue));
+        System.out.println("Walk in: " + data.walkInCount);
+        System.out.println("Delivery: " + data.deliveryCount);
+        System.out.println("Date of this sale overview: " + data.dateOverview);
         System.out.println("===============================\n");
     }
 }

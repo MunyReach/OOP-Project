@@ -174,11 +174,15 @@ public class OrderBooks {
             return;
         }
 
-
+        // Reduce stock quantities after successful payment
+        for (int i = 0; i < orderedBooks.size(); i++) {
+            orderedBooks.get(i).reduceQuantity(orderedQuantities.get(i));
+        }
 
         Receipt.generateReciept(orderedBooks, orderedQuantities, paymentMethod, customerPhone, customerAddress, currentUser.getName());
 
-        System.out.println("Thank you for shopping with us!");
+        // Save updated book stock
+        bookStock.saveBooksToFile();
     }
 
     // Reads and validates quantity input (must be numeric and between 1 and 5)

@@ -9,6 +9,12 @@ public class OwnerLoginHandler implements LoginHandler {
     public User login(Scanner scanner) {
         System.out.print("Enter email: ");
         String email = scanner.nextLine();
+        
+        if (!ValidationUtils.isValidEmail(email)) {
+            System.out.println("Invalid email!");
+            return null;
+        }
+        
         System.out.print("Enter password: ");
         String password = scanner.nextLine();
 

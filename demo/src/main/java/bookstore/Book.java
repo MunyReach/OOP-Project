@@ -21,6 +21,16 @@ public class Book {
         this.quantity = 5; // default quantity
     }
 
+    public Book(String title, String author, String isbn, double price, String category, int quantity) {
+        this.bookId = nextBookId++;
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+        this.price = price;
+        this.category = category;
+        this.quantity = quantity;
+    }
+
     public int getBookId() {
         return bookId;
     }
@@ -60,6 +70,14 @@ public class Book {
     public void reduceQuantity(int amount) {
         quantity -= amount;
         if (quantity < 0) quantity = 0;
+    }
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
+    }
+
+    public static void setNextBookId(int id) {
+        nextBookId = id;
     }
 
     public void displayInfo() {
